@@ -20,7 +20,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
 
-  const user = await getMe()
+  // const user = await getMe()
   return (
     <html
       lang="en"
@@ -29,7 +29,7 @@ export default async function RootLayout({
     >
       <body>
         <ThemeProvider>
-          <Navbar user={user} />
+          {/* <Navbar user={user} /> */}
           {children}
           <Toaster position="top-right" richColors/>
         </ThemeProvider>

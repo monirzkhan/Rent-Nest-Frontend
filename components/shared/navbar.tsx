@@ -66,7 +66,7 @@ const navigationData: NavigationSection[] = [
     },
     {
         title: "Properties",
-        href: "/croperties",
+        href: "/properties",
     },
     {
         title: "Categories",

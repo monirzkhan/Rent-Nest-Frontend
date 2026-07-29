@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState, useActionState } from "react";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { loginAction } from "../_actions/authAction";
+import { toast } from "sonner";
 
 
 // Helper function to merge class names
@@ -17,19 +18,19 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-const Button = ({ 
-  children, 
-  variant = "default", 
-  className = "", 
-  ...props 
+const Button = ({
+  children,
+  variant = "default",
+  className = "",
+  ...props
 }: ButtonProps) => {
   const baseStyles = "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
-  
+
   const variantStyles = {
     default: "bg-primary bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700",
     outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
   };
-  
+
   return (
     <button
       className={`${baseStyles} ${variantStyles[variant]} ${className}`}
@@ -156,7 +157,7 @@ const DotMap = () => {
     // Draw background dots
     function drawDots() {
       ctx.clearRect(0, 0, dimensions.width, dimensions.height);
-      
+
       // Draw the dots
       dots.forEach(dot => {
         ctx.beginPath();
@@ -169,17 +170,17 @@ const DotMap = () => {
     // Draw animated routes
     function drawRoutes() {
       const currentTime = (Date.now() - startTime) / 1000; // Time in seconds
-      
+
       routes.forEach(route => {
         const elapsed = currentTime - route.start.delay;
         if (elapsed <= 0) return;
-        
+
         const duration = 3; // Animation duration in seconds
         const progress = Math.min(elapsed / duration, 1);
-        
+
         const x = route.start.x + (route.end.x - route.start.x) * progress;
         const y = route.start.y + (route.end.y - route.start.y) * progress;
-        
+
         // Draw the route line
         ctx.beginPath();
         ctx.moveTo(route.start.x, route.start.y);
@@ -187,25 +188,25 @@ const DotMap = () => {
         ctx.strokeStyle = route.color;
         ctx.lineWidth = 1.5;
         ctx.stroke();
-        
+
         // Draw the start point
         ctx.beginPath();
         ctx.arc(route.start.x, route.start.y, 3, 0, Math.PI * 2);
         ctx.fillStyle = route.color;
         ctx.fill();
-        
+
         // Draw the moving point
         ctx.beginPath();
         ctx.arc(x, y, 3, 0, Math.PI * 2);
         ctx.fillStyle = "#3b82f6";
         ctx.fill();
-        
+
         // Add glow effect to the moving point
         ctx.beginPath();
         ctx.arc(x, y, 6, 0, Math.PI * 2);
         ctx.fillStyle = "rgba(59, 130, 246, 0.4)";
         ctx.fill();
-        
+
         // If the route is complete, draw the end point
         if (progress === 1) {
           ctx.beginPath();
@@ -215,21 +216,21 @@ const DotMap = () => {
         }
       });
     }
-    
+
     // Animation loop
     function animate() {
       drawDots();
       drawRoutes();
-      
+
       // If all routes are complete, restart the animation
       const currentTime = (Date.now() - startTime) / 1000;
       if (currentTime > 15) { // Reset after 15 seconds
         startTime = Date.now();
       }
-      
+
       animationFrameId = requestAnimationFrame(animate);
     }
-    
+
     animate();
 
     return () => cancelAnimationFrame(animationFrameId);
@@ -243,12 +244,24 @@ const DotMap = () => {
 };
 
 const SignInCard = () => {
-    const [state, action, pending]=useActionState(loginAction, false)
+  const [state, action, pending] = useActionState(loginAction, false)
+   useEffect(()=> {
+        if(!state) return;
+
+        // if(state.success){
+        //     toast.success(state.message || "Login Successful");
+        //     // router.push("/dashboard")
+        // }
+
+        if(!state.success){
+            toast.error(state.message || "Login failed");
+        }
+    }, [state]);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isHovered, setIsHovered] = useState(false);
-  
+
   return (
     <div className="flex w-full h-full items-center justify-center">
       <motion.div
@@ -261,10 +274,10 @@ const SignInCard = () => {
         <div className="hidden md:block w-1/2 h-[600px] relative overflow-hidden border-r border-gray-100">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100">
             <DotMap />
-            
+
             {/* Logo and text overlay */}
             <div className="absolute inset-0 flex flex-col items-center justify-center p-8 z-10">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
@@ -274,7 +287,7 @@ const SignInCard = () => {
                   <ArrowRight className="text-white h-6 w-6" />
                 </div>
               </motion.div>
-              <motion.h2 
+              <motion.h2
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.5 }}
@@ -282,18 +295,18 @@ const SignInCard = () => {
               >
                 Rent Nest
               </motion.h2>
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.5 }}
                 className="text-sm text-center text-gray-600 max-w-xs"
               >
-                Sign in to access your Rent Nest dashboard 
+                Sign in to access your Rent Nest dashboard
               </motion.p>
             </div>
           </div>
         </div>
-        
+
         {/* Right side - Sign In Form */}
         <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center bg-white">
           <motion.div
@@ -303,9 +316,9 @@ const SignInCard = () => {
           >
             <h1 className="text-2xl md:text-3xl font-bold mb-1 text-gray-800">Welcome back</h1>
             <p className="text-gray-500 mb-8">Sign in to your account</p>
-            
+
             <div className="mb-6">
-              <button 
+              <button
                 className="w-full flex items-center justify-center gap-2 bg-gray-50 border border-gray-200 rounded-lg p-3 hover:bg-gray-100 transition-all duration-300 text-gray-700 shadow-sm"
                 onClick={() => console.log("Google sign-in")}
               >
@@ -332,7 +345,7 @@ const SignInCard = () => {
                 <span>Login with Google</span>
               </button>
             </div>
-            
+
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-200"></div>
@@ -341,8 +354,8 @@ const SignInCard = () => {
                 <span className="px-2 bg-white text-gray-500">or</span>
               </div>
             </div>
-            
-            <form  action={action} className="space-y-5">
+
+            <form action={action} className="space-y-5">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                   Email <span className="text-blue-500">*</span>
@@ -358,7 +371,7 @@ const SignInCard = () => {
                   className="bg-gray-50 border-gray-200 placeholder:text-gray-400 text-gray-800 w-full focus:border-blue-500 focus:ring-blue-500"
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                   Password <span className="text-blue-500">*</span>
@@ -383,8 +396,8 @@ const SignInCard = () => {
                   </button>
                 </div>
               </div>
-              
-              <motion.div 
+
+              <motion.div
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
                 onHoverStart={() => setIsHovered(true)}
@@ -397,11 +410,11 @@ const SignInCard = () => {
                     "w-full bg-gradient-to-r relative overflow-hidden from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white py-2 rounded-lg transition-all duration-300",
                     isHovered ? "shadow-lg shadow-blue-200" : ""
                   )}
-                 
+
                 >
                   <span className="flex items-center justify-center">
                     {
-                        pending? "Submitting": "Login"
+                      pending ? "Submitting" : "Login"
                     }
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </span>
@@ -416,7 +429,7 @@ const SignInCard = () => {
                   )}
                 </Button>
               </motion.div>
-              
+
               <div className="text-center mt-6">
                 <a href="#" className="text-blue-600 hover:text-blue-700 text-sm transition-colors">
                   Forgot password?
@@ -424,7 +437,7 @@ const SignInCard = () => {
               </div>
               <div className="text-center mt-6">
                 <a href="/register" className="text-blue-600 hover:text-blue-700 text-sm transition-colors">
-                New here? Create Account
+                  New here? Create Account
                 </a>
               </div>
             </form>
