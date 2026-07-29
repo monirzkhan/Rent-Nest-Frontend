@@ -1,88 +1,107 @@
 "use client";
 
+import { User } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
+import { Button } from "../ui/button";
 
-const Card = () => {
-  return (
-    <StyledWrapper>
-      <div className="card">
-        <div className="content">
-          {/* Back Side */}
-          <div className="back">
-            <div className="back-content">
-              <Image
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
-                alt="Luxury Apartment"
-                fill
-                className="back-image"
-              />
-              <div className="back-overlay" />
-              <strong>Hover Me</strong>
-            </div>
-          </div>
+const PropertyCard = ({ property }: any) => {
+    return (
+        <StyledWrapper>
+            <div className="card">
+                <div className="content">
+                    {/* Back Side */}
+                    <div className="back">
+                        <div className="back-content">
+                            <Image
+                                src={property.thumbnail}
+                                alt="Property"
+                                fill
+                                className="property-image"
+                            />
+                            <div className="back-overlay" />
+                            <strong>{property.category.name}</strong>
+                        </div>
+                    </div>
 
-          {/* Front Side */}
-          <div className="front">
-            <div className="img">
-              <Image
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
-                alt="Luxury Apartment"
-                fill
-                priority
-                className="property-image"
-              />
+                    {/* Front Side */}
+                    <div className="front">
+                        <div className="img">
+                            <Image
+                                src={property.thumbnail}
+                                alt="Property"
+                                fill
+                                className="property-image"
+                            />
 
-              <div className="overlay" />
+                            <div className="overlay" />
 
-              <div className="circle"></div>
-              <div className="circle" id="right"></div>
-              <div className="circle" id="bottom"></div>
-            </div>
+                            <div className="circle"></div>
+                            <div className="circle" id="right"></div>
+                            <div className="circle" id="bottom"></div>
+                        </div>
 
-            <div className="front-content">
-              <small className="badge">FOR RENT</small>
+                        <div className="front-content">
+                            <small className="badge">FOR RENT</small>
 
-              <div className="description">
-                <div className="title">
-                  <p>
-                    <strong>Luxury Apartment</strong>
-                  </p>
+                            <div className="description space-y-3">
+                                <div className="title ">
+                                    <p>
+                                        <strong>{property.title}</strong>
+                                    </p>
 
-                  <svg
-                    fill="#20c997"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 32 32"
-                  >
-                    <path d="M25 27l-9-6.75L7 27V4h18z" />
-                  </svg>
+                                    <svg
+                                        fill="#20c997"
+                                        width="18"
+                                        height="18"
+                                        viewBox="0 0 32 32"
+                                    >
+                                        <path d="M25 27l-9-6.75L7 27V4h18z" />
+                                    </svg>
+
+                                </div>
+                                <div className="button-group">
+                                    <Link href="/properties/:id" className="btn btn-primary">
+                                        View
+                                    </Link>
+
+                                    <Link href="/login" className="btn btn-secondary">
+                                        Rent Request
+                                    </Link>
+                                </div>
+
+                                <p className="location">📍 {property.address}</p>
+                                <div className="flex items-center-safe">
+                                    <User></User>
+
+                                    <p>  {property.landlord.name}</p>
+                                </div>
+
+                                <p className="price">${property.rentAmount} / Month</p>
+
+                                <p className="card-footer">
+                                    🛏 {property.bedrooms} Beds &nbsp; | &nbsp; 🚿 {property.bathrooms} Baths &nbsp; | &nbsp; 📐
+                                    {property.areas} sqft
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <p className="location">📍 Banani, Dhaka</p>
-
-                <p className="price">$650 / Month</p>
-
-                <p className="card-footer">
-                  🛏 3 Beds &nbsp; | &nbsp; 🚿 2 Baths &nbsp; | &nbsp; 📐
-                  1400 sqft
-                </p>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </StyledWrapper>
-  );
+        </StyledWrapper>
+    );
 };
 
 const StyledWrapper = styled.div`
   .card {
-    width: 320px;
-    height: 420px;
-    perspective: 1000px;
-  }
+  position: relative;
+  width: 320px;
+  height: 420px;
+  perspective: 1000px;
+}
 
   .content {
     position: relative;
@@ -99,11 +118,12 @@ const StyledWrapper = styled.div`
 
   .front,
   .back {
-    position: absolute;
-    inset: 0;
-    border-radius: 16px;
-    overflow: hidden;
-    backface-visibility: hidden;
+   position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 16px;
+ 
+  backface-visibility: hidden;
   }
 
   /* ---------------- BACK ---------------- */
@@ -125,9 +145,11 @@ const StyledWrapper = styled.div`
     color: white;
     font-size: 24px;
     font-weight: bold;
+    
   }
 
   .back-image {
+  pointer-events: none;
     object-fit: cover;
     z-index: 0;
   }
@@ -137,12 +159,64 @@ const StyledWrapper = styled.div`
     inset: 0;
     background: rgba(0, 0, 0, 0.55);
     z-index: 1;
+    pointer-events: none;
   }
 
   .back-content strong {
     position: relative;
     z-index: 2;
   }
+    .back-info {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+   position: relative;
+  z-index: 100;
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+   position: relative;
+  z-index: 101;
+  pointer-events: auto;
+}
+
+.btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+   position: relative;
+  z-index: 101;
+  pointer-events: auto;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
 
   /* ---------------- FRONT ---------------- */
 
@@ -152,8 +226,10 @@ const StyledWrapper = styled.div`
   }
 
   .img {
-    position: absolute;
-    inset: 0;
+     position: relative;
+    width: 100%;
+     height: 100%;
+    overflow: hidden;
   }
 
   .property-image {
@@ -266,4 +342,4 @@ const StyledWrapper = styled.div`
   }
 `;
 
-export default Card;
+export default PropertyCard;
