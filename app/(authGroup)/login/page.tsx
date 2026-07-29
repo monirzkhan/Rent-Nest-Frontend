@@ -1,9 +1,11 @@
 import React from 'react';
 
+import Index from '../_components/LoginForm';
+
 const LoginPage = () => {
     return (
         <div>
-            Login Page
+            <Index></Index>
         </div>
     );
 };
