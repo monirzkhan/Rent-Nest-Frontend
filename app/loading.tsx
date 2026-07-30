@@ -3,7 +3,7 @@ import React from 'react';
 
 const GlobalLoading = () => {
     return (
-        <div className='w-full mx-auto flex items-center justify-center my-20'>
+        <div className='w-full mx-auto flex items-center justify-center my-50'>
             <HomeLoader/>
         </div>
     );

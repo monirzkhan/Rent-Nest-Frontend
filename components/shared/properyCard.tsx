@@ -5,94 +5,99 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
-import { Button } from "../ui/button";
+import RentRequestModal from "@/app/(publicGroup)/properties/[id]/_components/RentRequestModal";
 
-const PropertyCard = ({ property }: any) => {
-    return (
-        <StyledWrapper>
-            <div className="card">
-                <div className="content">
-                    {/* Back Side */}
-                    <div className="back">
-                        <div className="back-content">
-                            <Image
-                                src={property.thumbnail}
-                                alt="Property"
-                                fill
-                                className="property-image"
-                            />
-                            <div className="back-overlay" />
-                            <strong>{property.category.name}</strong>
-                        </div>
-                    </div>
 
-                    {/* Front Side */}
-                    <div className="front">
-                        <div className="img">
-                            <Image
-                                src={property.thumbnail}
-                                alt="Property"
-                                fill
-                                className="property-image"
-                            />
-
-                            <div className="overlay" />
-
-                            <div className="circle"></div>
-                            <div className="circle" id="right"></div>
-                            <div className="circle" id="bottom"></div>
-                        </div>
-
-                        <div className="front-content">
-                            <small className="badge">{property.status}</small>
-
-                            <div className="description space-y-3">
-                                <div className="title ">
-                                    <p>
-                                        <strong>{property.title}</strong>
-                                    </p>
-
-                                    <svg
-                                        fill="#20c997"
-                                        width="18"
-                                        height="18"
-                                        viewBox="0 0 32 32"
-                                    >
-                                        <path d="M25 27l-9-6.75L7 27V4h18z" />
-                                    </svg>
-
-                                </div>
-                                <div className="button-group">
-                                    <Link href="/properties/:id" className="btn btn-primary">
-                                        View
-                                    </Link>
-
-                                    <Link href="/login" className="btn btn-secondary">
-                                        Rent Request
-                                    </Link>
-                                </div>
-
-                                <p className="location">📍 {property.address}</p>
-                                <div className="flex items-center-safe">
-                                    <User></User>
-
-                                    <p>  {property.landlord.name}</p>
-                                </div>
-
-                                <p className="price">${property.rentAmount} / Month</p>
-
-                                <p className="card-footer">
-                                    🛏 {property.bedrooms} Beds &nbsp; | &nbsp; 🚿 {property.bathrooms} Baths &nbsp; | &nbsp; 📐
-                                    {property.areas} sqft
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+const PropertyCard = async({ property }: any) => {
+ 
+  return (
+    <StyledWrapper>
+      <div className="card" style={{ position: 'relative', width: '320px', height: '420px' }}>
+        <div className="content" style={{ position: 'relative', width: '100%', height: '100%' }}>
+          {/* Back Side */}
+          <div className="back" style={{ position: 'absolute', inset: 0 }}>
+            <div className="back-content" style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <Image
+                src={property.thumbnail}
+                alt="Property"
+                fill
+                className="property-image"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+              <div className="back-overlay" />
+              <strong>{property.category.name}</strong>
             </div>
-        </StyledWrapper>
-    );
+          </div>
+
+          {/* Front Side */}
+          <div className="front" style={{ position: 'absolute', inset: 0 }}>
+            <div className="img" style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <Image
+                src={property.thumbnail}
+                alt="Property"
+                fill
+                className="property-image"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+
+              <div className="overlay" />
+
+              <div className="circle"></div>
+              <div className="circle" id="right"></div>
+              <div className="circle" id="bottom"></div>
+            </div>
+
+            <div className="front-content">
+              <small className="badge">{property.status}</small>
+
+              <div className="description space-y-3">
+                <div className="title ">
+                  <p>
+                    <strong>{property.title}</strong>
+                  </p>
+
+                  <svg
+                    fill="#20c997"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 32 32"
+                  >
+                    <path d="M25 27l-9-6.75L7 27V4h18z" />
+                  </svg>
+
+                </div>
+                <div className="button-group">
+                  <Link href={`/properties/${property.id}`} className="btn btn-primary">
+                    View
+                  </Link>
+
+                  <Link href="/login" className="btn btn-secondary">
+                    Rent Request
+                  </Link>
+                  
+                </div>
+
+                <p className="location">📍 {property.address}</p>
+                <div className="flex items-center-safe">
+                  <User></User>
+
+                  <p>  {property.landlord.name}</p>
+                </div>
+
+                <p className="price">${property.rentAmount} / Month</p>
+
+                <p className="card-footer">
+                  🛏 {property.bedrooms} Beds &nbsp; | &nbsp; 🚿 {property.bathrooms} Baths &nbsp; | &nbsp; 📐
+                  {property.areas} sqft
+                </p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </StyledWrapper>
+  );
 };
 
 const StyledWrapper = styled.div`
