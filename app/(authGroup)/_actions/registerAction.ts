@@ -19,7 +19,7 @@ export const registerAction = async (loginState: LoginState, formData: FormData)
     }
 
     console.log(payload);
-    const res = await fetch(`${process.env.BACKEND_API_URL}/api/auth/register`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL }/api/auth/register`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"

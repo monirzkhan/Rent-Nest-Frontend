@@ -24,7 +24,7 @@ export const loginAction = async (loginState: LoginState, formData: FormData) =>
         password
     }
     console.log(payload);
-    const res = await fetch(`${process.env.BACKEND_API_URL}/api/auth/login`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL }/api/auth/login`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
