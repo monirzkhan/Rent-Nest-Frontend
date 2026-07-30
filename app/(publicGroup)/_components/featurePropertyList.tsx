@@ -11,7 +11,7 @@ const FeaturePropertyList = async () => {
             <div className='text-center text-4xl font-semibold '>
                 <h1>Browse Properties and Rent</h1>
             </div>
-            <div className='grid grid-cols-3 gap-4'>
+            <div className='grid md:grid-cols-3 grid-cols-1   gap-4'>
                 {
                     properties.data.map((property: any) => (
                         <PropertyCard key={property.id} property={property}></PropertyCard>

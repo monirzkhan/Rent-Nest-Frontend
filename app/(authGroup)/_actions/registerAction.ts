@@ -11,10 +11,11 @@ export const registerAction = async (loginState: LoginState, formData: FormData)
     const name = formData.get('name')
     const email = formData.get('email')
     const password = formData.get('password')
+    const role = formData.get("role") as "TENANT" | "LANDLORD";
     const profilePhoto = formData.get('profilePhoto')
     const bio = formData.get('bio')
     const payload = {
-        name, email, password, profilePhoto,bio
+        name, email, password, role, profilePhoto,bio
     }
 
     console.log(payload);

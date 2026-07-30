@@ -44,7 +44,7 @@ const PropertyCard = ({ property }: any) => {
                         </div>
 
                         <div className="front-content">
-                            <small className="badge">FOR RENT</small>
+                            <small className="badge">{property.status}</small>
 
                             <div className="description space-y-3">
                                 <div className="title ">

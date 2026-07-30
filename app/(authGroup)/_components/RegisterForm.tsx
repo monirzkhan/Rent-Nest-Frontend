@@ -147,9 +147,14 @@ const DotMap = () => {
 
         const canvas = canvasRef.current;
         if (!canvas) return;
+        
+        const context = canvas.getContext("2d");
+        if (!context) return;
 
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
+        const ctx = context;
+
+        // const ctx = canvas.getContext("2d");
+        // // if (!ctx) return;
 
         const dots = generateDots(dimensions.width, dimensions.height);
         let animationFrameId: number;
@@ -411,7 +416,31 @@ const RegistrationCard = () => {
                                     </button>
                                 </div>
                             </div>
-                             <div>
+                            {/* //Declare Role */}
+                            <div>
+                                <label
+                                    htmlFor="role"
+                                    className="block text-sm font-medium text-gray-700 mb-1"
+                                >
+                                    Register As <span className="text-blue-500">*</span>
+                                </label>
+
+                                <select
+                                    id="role"
+                                    name="role"
+                                    required
+                                    className="flex h-10 w-full rounded-md border bg-gray-50 px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    defaultValue=""
+                                >
+                                    <option value="" disabled>
+                                        Select your role
+                                    </option>
+                                    <option value="TENANT">Tenant</option>
+                                    <option value="LANDLORD">Landlord</option>
+                                </select>
+                            </div>
+
+                            <div>
                                 <label htmlFor="ProfilePhoto" className="block text-sm font-medium text-gray-700 mb-1">
                                     Profile Photo <span className="text-blue-500">*</span>
                                 </label>
@@ -425,7 +454,7 @@ const RegistrationCard = () => {
                                     className="bg-gray-50 border-gray-200 placeholder:text-gray-400 text-gray-800 w-full focus:border-blue-500 focus:ring-blue-500"
                                 />
                             </div>
-                             <div>
+                            <div>
                                 <label htmlFor="Bio" className="block text-sm font-medium text-gray-700 mb-1">
                                     Bio <span className="text-blue-500">*</span>
                                 </label>
@@ -439,7 +468,7 @@ const RegistrationCard = () => {
                                     className="bg-gray-50 border-gray-200 placeholder:text-gray-400 text-gray-800 w-full focus:border-blue-500 focus:ring-blue-500"
                                 />
                             </div>
-                            
+
 
                             <motion.div
                                 whileHover={{ scale: 1.01 }}

@@ -146,9 +146,13 @@ const DotMap = () => {
 
     const canvas = canvasRef.current;
     if (!canvas) return;
+    
+    const context = canvas.getContext("2d");
+    if (!context) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const ctx = context;
+    // const ctx = canvas.getContext("2d");
+    // if (!ctx) return;
 
     const dots = generateDots(dimensions.width, dimensions.height);
     let animationFrameId: number;
@@ -245,18 +249,18 @@ const DotMap = () => {
 
 const SignInCard = () => {
   const [state, action, pending] = useActionState(loginAction, false)
-   useEffect(()=> {
-        if(!state) return;
+  useEffect(() => {
+    if (!state) return;
 
-        // if(state.success){
-        //     toast.success(state.message || "Login Successful");
-        //     // router.push("/dashboard")
-        // }
+    // if(state.success){
+    //     toast.success(state.message || "Login Successful");
+    //     // router.push("/dashboard")
+    // }
 
-        if(!state.success){
-            toast.error(state.message || "Login failed");
-        }
-    }, [state]);
+    if (!state.success) {
+      toast.error(state.message || "Login failed");
+    }
+  }, [state]);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
