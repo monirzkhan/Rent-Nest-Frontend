@@ -8,7 +8,7 @@ import styled from "styled-components";
 import RentRequestModal from "@/app/(publicGroup)/properties/[id]/_components/RentRequestModal";
 
 
-const PropertyCard = async({ property }: any) => {
+const PropertyCard = ({ property }: any) => {
  
   return (
     <StyledWrapper>

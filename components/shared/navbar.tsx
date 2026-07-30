@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, LayoutDashboardIcon, LogOutIcon, Settings, TextAlignJustify, User, User2Icon } from "lucide-react";
+import { ArrowUpRight, HousePlus, LayoutDashboardIcon, LogOutIcon, Settings, TextAlignJustify, User, User2Icon } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import RegisterButton from "./registerButton";
@@ -161,8 +161,8 @@ const Navbar = ({ user }: NavbarProps) => {
                                 : "bg-transparent border-transparent"
                         )}
                     >
-                        <a href={'/'} className="text-2xl font-bold ">
-                            Rent Nest
+                        <a href={'/'} className="text-2xl text-blue-600 font-bold flex items-center justify-center gap-2">
+                         <HousePlus></HousePlus>  Rent Nest
                         </a>
                         <div>
                             <NavigationMenu className="max-lg:hidden bg-muted p-0.5 rounded-full">

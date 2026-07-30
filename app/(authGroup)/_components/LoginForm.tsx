@@ -1,6 +1,6 @@
 "use client"
 import React, { useRef, useEffect, useState, useActionState } from "react";
-import { Eye, EyeOff, ArrowRight } from "lucide-react";
+import { Eye, EyeOff, ArrowRight, HousePlus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { loginAction } from "../_actions/authAction";
 import { toast } from "sonner";
@@ -288,7 +288,7 @@ const SignInCard = () => {
                 className="mb-6"
               >
                 <div className="h-12 w-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-200">
-                  <ArrowRight className="text-white h-6 w-6" />
+                  <HousePlus className="text-white h-6 w-6" />
                 </div>
               </motion.div>
               <motion.h2
