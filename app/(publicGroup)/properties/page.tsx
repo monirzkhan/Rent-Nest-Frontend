@@ -5,7 +5,7 @@ import { SearchBox } from '../_components/searchBox';
 import { Breadcums } from '../_components/breadcums';
 
 const PublicPropertiesPage = async () => {
-    const data = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/properties`)
+    const data = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/properties`, { cache: 'no-store' })
     const properties = await data.json()
 
     return (

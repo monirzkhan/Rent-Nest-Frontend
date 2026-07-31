@@ -6,11 +6,11 @@ import React from 'react';
 
 const FeaturePropertyList = async () => {
 
-    const data = await fetch('https://rentnest-seven.vercel.app/api/properties')
+    const data = await fetch('https://rentnest-seven.vercel.app/api/properties', { cache: 'no-store' })
     const properties = await data.json()
     return (
         <div className='space-y-12'>
-            <div className='text-center text-4xl font-semibold '>
+            <div className='text-center md:text-4xl text-xl font-semibold '>
                 <h1>Browse Properties and Rent</h1>
             </div>
             <div className='grid md:grid-cols-3 grid-cols-1   gap-4'>

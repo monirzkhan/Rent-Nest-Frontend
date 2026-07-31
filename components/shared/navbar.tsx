@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, HousePlus, LayoutDashboardIcon, LogOutIcon, Settings, TextAlignJustify, User, User2Icon } from "lucide-react";
+import { ArrowUpRight, HousePlus, LayoutDashboardIcon, LogOutIcon, Settings, Sun, TextAlignJustify, User, User2Icon } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import RegisterButton from "./registerButton";
@@ -12,43 +12,44 @@ import RegisterButton from "./registerButton";
 import { toast } from "sonner";
 import { logout } from "@/service/logout";
 import { useRouter } from "next/navigation";
+import { IUser } from "@/lib/types";
 
 export type NavigationSection = {
     title: string;
     href: string;
 };
-type IUser = {
-    success: boolean,
-    message: string,
-    data: {
-        activeStatus:
-        string
-        createdAt
-        :
-        string
-        email
-        :
-        string
-        id
-        :
-        string
-        name
-        :
-        string
-        role: string
-        profile: {
+// type IUser = {
+//     success: boolean,
+//     message: string,
+//     data: {
+//         activeStatus:
+//         string
+//         createdAt
+//         :
+//         string
+//         email
+//         :
+//         string
+//         id
+//         :
+//         string
+//         name
+//         :
+//         string
+//         role: string
+//         profile: {
 
 
-            id: string,
-            profilePhoto: string,
-            bio: string | null,
-            userId: string,
-            createdAt: string,
-            updatedAt: string
+//             id: string,
+//             profilePhoto: string,
+//             bio: string | null,
+//             userId: string,
+//             createdAt: string,
+//             updatedAt: string
 
-        }
-    }
-}
+//         }
+//     }
+// }
 
 type NavbarProps = {
     user: IUser
@@ -61,8 +62,8 @@ const userMenuItems = [
 ];
 const navigationData: NavigationSection[] = [
     {
-        title: "About us",
-        href: "/about",
+        title: "Home",
+        href: "/",
     },
     {
         title: "Properties",
@@ -73,8 +74,8 @@ const navigationData: NavigationSection[] = [
         href: "/categories",
     },
     {
-        title: "Team",
-        href: "#",
+        title: "About us",
+        href: "/about",
     },
     {
         title: "Blogs",
@@ -180,8 +181,13 @@ const Navbar = ({ user }: NavbarProps) => {
                                 </NavigationMenuList>
                             </NavigationMenu>
                         </div>
+                        {/* darkmood/night mood */}
+                        <div className="-mr-30 md:-mr-65">
+                            <Sun></Sun>
+                        </div>
                         {/* User Dropdown */}
-                        {
+                       <div className=" md: ml:0 ml-30">
+                         {
                             user.success ? (
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
@@ -235,6 +241,7 @@ const Navbar = ({ user }: NavbarProps) => {
                             //     </Button>
                             // </Link>
                         }
+                       </div>
 
 
                         <div className="lg:hidden">

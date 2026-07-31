@@ -89,17 +89,20 @@ export default function PropertyGallery() {
                     perspective: 1200,
                     transformStyle: "preserve-3d",
                   }}
+                  whileHover={{
+                    rotateX: 5,
+                    rotateY: -8,
+                    scale: 1.03,
+                  }}
                   initial={{
                     opacity: 0,
                     rotateY: 25,
                     scale: 0.9,
-                    z: -100,
                   }}
                   animate={{
                     opacity: 1,
                     rotateY: 0,
                     scale: 1,
-                    z: 0,
                   }}
                   transition={{
                     duration: 0.8,

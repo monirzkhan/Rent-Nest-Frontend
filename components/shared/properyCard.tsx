@@ -7,9 +7,13 @@ import React from "react";
 import styled from "styled-components";
 import RentRequestModal from "@/app/(publicGroup)/properties/[id]/_components/RentRequestModal";
 import { div } from "framer-motion/client";
+import { IProperty } from "@/lib/types";
 
+type IpropertyProps={
+  property: IProperty
+}
 
-const PropertyCard = ({ property }: any) => {
+const PropertyCard = ({ property }: IpropertyProps) => {
 
   return (
     <StyledWrapper>

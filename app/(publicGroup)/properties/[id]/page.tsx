@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import PropertyImageGallery from './_components/PropertyImageGallery';
 import RentRequestModal from './_components/RentRequestModal';
 import { cookies } from 'next/headers';
+import { Breadcums } from '../../_components/breadcums';
 
 const DynamicPropertyPage = async ({
     params,
@@ -15,13 +16,16 @@ const DynamicPropertyPage = async ({
     const cookieStore = await cookies();
     const isLoggedIn = !!cookieStore.get('accessToken')?.value;
 
-    const data = await fetch(`https://rentnest-seven.vercel.app/api/properties/${id}`)
+    const data = await fetch(`https://rentnest-seven.vercel.app/api/properties/${id}`, { cache: 'no-store' })
     const property = await data.json()
     const propData = property?.data || {};
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8 bg-white">
-            <div className='my-3'>
+            <div className='space-y-2'>
+                <Breadcums></Breadcums>
+            </div>
+            <div className='my-5'>
                 <div className="md:flex justify-between items-center mb-6">
                     <div className="space-y-2 ">
                         <div className="flex items-center mb-3 gap-3 ">
