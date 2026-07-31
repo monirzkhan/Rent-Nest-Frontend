@@ -1,4 +1,6 @@
 import PropertyCard from '@/components/shared/properyCard';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 import React from 'react';
 
@@ -13,11 +15,18 @@ const FeaturePropertyList = async () => {
             </div>
             <div className='grid md:grid-cols-3 grid-cols-1   gap-4'>
                 {
-                    properties.data.map((property: any) => (
+                    properties.data.slice(0, 6).map((property: any) => (
                         <PropertyCard key={property.id} property={property}></PropertyCard>
                     ))
                 }
 
+            </div>
+            <div className='flex justify-center'>
+                <Link href={"/properties"}>
+                <Button variant={"link"} >
+                    Browse All
+                </Button>
+                </Link>
             </div>
         </div>
     );

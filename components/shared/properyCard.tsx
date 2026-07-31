@@ -1,15 +1,16 @@
 "use client";
 
-import { User } from "lucide-react";
+import { BadgeAlert, MapPinCheck, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 import RentRequestModal from "@/app/(publicGroup)/properties/[id]/_components/RentRequestModal";
+import { div } from "framer-motion/client";
 
 
 const PropertyCard = ({ property }: any) => {
- 
+
   return (
     <StyledWrapper>
       <div className="card" style={{ position: 'relative', width: '320px', height: '420px' }}>
@@ -48,7 +49,18 @@ const PropertyCard = ({ property }: any) => {
             </div>
 
             <div className="front-content">
-              <small className="badge">{property.status}</small>
+              {
+                property.status === "RENTED" ?
+                  <div className=" ">
+
+                    <small className="flex items-center gap-2 rounded-lg bg-red-600 text-white px-4 py-2 w-30 font-bold"> <BadgeAlert></BadgeAlert> {property.status}</small>
+                  </div>
+                  :
+                  < div>
+
+                    <small className="flex items-center gap-2 rounded-lg bg-green-600 text-white px-4 py-2 w-35 font-bold"> <MapPinCheck></MapPinCheck> {property.status}</small>
+                  </div>
+              }
 
               <div className="description space-y-3">
                 <div className="title ">
@@ -74,7 +86,7 @@ const PropertyCard = ({ property }: any) => {
                   <Link href="/login" className="btn btn-secondary">
                     Rent Request
                   </Link>
-                  
+
                 </div>
 
                 <p className="location">📍 {property.address}</p>
@@ -127,8 +139,10 @@ const StyledWrapper = styled.div`
   inset: 0;
   overflow: hidden;
   border-radius: 16px;
- 
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   }
 
   /* ---------------- BACK ---------------- */
@@ -227,6 +241,7 @@ const StyledWrapper = styled.div`
 
   .front {
     transform: rotateY(180deg);
+  will-change: transform;
     color: white;
   }
 
@@ -312,6 +327,11 @@ const StyledWrapper = styled.div`
 
   .description {
     backdrop-filter: blur(12px);
+     
+  -webkit-backdrop-filter: blur(12px);
+
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
     background: rgba(0, 0, 0, 0.45);
     border-radius: 14px;
     padding: 16px;
