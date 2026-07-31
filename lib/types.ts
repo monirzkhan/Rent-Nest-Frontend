@@ -81,3 +81,54 @@ export type ISidebarItem = {
     href: string,
     icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
 }
+
+export type IRental = {
+    message: string;
+    success: boolean;
+    statusCode: number;
+    data: IRentalRequest[];
+};
+
+
+
+export type IRentalRequest = {
+    id: string;
+    tenantId: string;
+    propertyId: string;
+    moveInDate: string;
+    durationMonths: number;
+    message: string;
+    status: "PENDING" | "APPROVED" | "REJECTED" | "ACTIVE" | "COMPLETED" | "CANCELLED";
+    createdAt: string;
+    updatedAt: string;
+    property: IRentalProperty;
+    tenant: ITenant;
+};
+
+export type IRentalProperty = {
+    id: string;
+    title: string;
+    description: string;
+    rentAmount: string;
+    bedrooms: number;
+    bathrooms: number;
+    areas: number;
+    address: string;
+    thumbnail: string;
+    images: string[];
+    status: "AVAILABLE" | "RENTED" | "INACTIVE";
+    landlordId: string;
+    categoryId: string;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type ITenant = {
+    id: string;
+    name: string;
+    email: string;
+    role: "TENANT";
+    activeStatus: "ACTIVE" | "BLOCKED";
+    createdAt: string;
+    updatedAt: string;
+};

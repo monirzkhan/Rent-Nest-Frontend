@@ -1,5 +1,5 @@
 import { ISidebarItem } from "@/lib/types"
-import { Banknote, FileText, LayoutDashboard, UserStar } from "lucide-react"
+import { Banknote, FileText, LayoutDashboard, Shapes, UserStar } from "lucide-react"
 import { ADMIN_SIDEBAR_ITEMS } from "./adminSidebarMenuItems"
 import { LANDLORD_SIDEBAR_ITEMS } from "./landlordSidebarMenuItems"
 
@@ -13,17 +13,17 @@ const TENANT_SIDEBAR_ITEMS : ISidebarItem[] = [
     },
     {
         label : "My Rental",
-        href : "/dashboard/my-rentals",
-        icon : FileText
+        href : "/dashboard/tenant/myRentals",
+        icon : Shapes
     },
     {
         label : "Payment",
-        href : "/dashboard/my-payment",
+        href : "/dashboard/tenant/myPayment",
         icon : Banknote
     },
     {
         label : "Review",
-        href : "/dashboard/my-review",
+        href : "/dashboard/tenant/myReview",
         icon : UserStar
     }
 ]
