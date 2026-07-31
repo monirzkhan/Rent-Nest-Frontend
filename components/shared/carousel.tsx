@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import {
@@ -39,6 +40,7 @@ export default function PropertyGallery() {
     if (!mainApi || !thumbApi) return;
 
     const index = mainApi.selectedScrollSnap();
+
     setSelectedIndex(index);
     thumbApi.scrollTo(index);
   }, [mainApi, thumbApi]);
@@ -57,68 +59,106 @@ export default function PropertyGallery() {
     };
   }, [mainApi, onSelect]);
 
-  return (
-    <div className="w-full">
-      <div className="group relative overflow-hidden rounded-2xl">
-        {/* Main Image Carousel */}
-        <Carousel setApi={setMainApi} className="w-full">
-          <CarouselContent>
-            {propertyImages.map((image, index) => (
-              <CarouselItem key={index}>
-                <div className="relative aspect-[16/9] w-full overflow-hidden">
-                  <Image
-                    src={`${image}?auto=format&fit=crop&w=1400&q=80`}
-                    alt={`Property ${index + 1}`}
-                    fill
-                    priority={index === 0}
-                    sizes="100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+  // Auto Scroll
+  useEffect(() => {
+    if (!mainApi) return;
 
-        {/* Thumbnail Carousel */}
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-4">
-          <Carousel
-            setApi={setThumbApi}
-            opts={{
-              containScroll: "keepSnaps",
-              dragFree: true,
-            }}
-            className="mx-auto max-w-lg"
-          >
-            <CarouselContent className="-ml-2">
-              {propertyImages.map((image, index) => (
-                <CarouselItem
-                  key={index}
-                  className="basis-1/4 pl-2 cursor-pointer"
-                  onClick={() => onThumbClick(index)}
+    const interval = setInterval(() => {
+      mainApi.scrollNext();
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [mainApi]);
+
+  return (
+    <div className="flex w-full flex-col gap-3">
+      {/* Main Carousel */}
+      <Carousel
+        setApi={setMainApi}
+        opts={{
+          loop: true,
+        }}
+        className="w-full"
+      >
+        <CarouselContent>
+          {propertyImages.map((image, index) => (
+            <CarouselItem key={index}>
+              <CarouselItem key={index}>
+                <motion.div
+                  style={{
+                    perspective: 1200,
+                    transformStyle: "preserve-3d",
+                  }}
+                  initial={{
+                    opacity: 0,
+                    rotateY: 25,
+                    scale: 0.9,
+                    z: -100,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    rotateY: 0,
+                    scale: 1,
+                    z: 0,
+                  }}
+                  transition={{
+                    duration: 0.8,
+                    ease: "easeOut",
+                  }}
                 >
-                  <div
-                    className={cn(
-                      "relative aspect-square overflow-hidden rounded-lg border-2 transition-all duration-300",
-                      selectedIndex === index
-                        ? "border-white ring-2 ring-white"
-                        : "border-white/40 opacity-70 hover:opacity-100"
-                    )}
-                  >
+                  <div className="relative aspect-video overflow-hidden rounded-xl">
                     <Image
-                      src={`${image}?auto=format&fit=crop&w=300&q=75`}
-                      alt={`Thumbnail ${index + 1}`}
+                      src={`${image}?auto=format&fit=crop&w=1400&q=80`}
+                      alt={`Property ${index + 1}`}
                       fill
-                      sizes="120px"
+                      priority={index === 0}
+                      sizes="100vw"
                       className="object-cover"
                     />
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
-      </div>
+                </motion.div>
+              </CarouselItem>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+
+      {/* Thumbnail Carousel */}
+      <Carousel
+        setApi={setThumbApi}
+        opts={{
+          containScroll: "keepSnaps",
+          dragFree: true,
+        }}
+        className="w-full"
+      >
+        <CarouselContent className="-ml-2">
+          {propertyImages.map((image, index) => (
+            <CarouselItem
+              key={index}
+              className="basis-1/5 cursor-pointer pl-2 sm:basis-1/6"
+              onClick={() => onThumbClick(index)}
+            >
+              <div
+                className={cn(
+                  "relative aspect-square overflow-hidden rounded-lg border-2 transition-all duration-300",
+                  selectedIndex === index
+                    ? "border-primary opacity-100 ring-2 ring-primary"
+                    : "border-transparent opacity-50 hover:opacity-100"
+                )}
+              >
+                <Image
+                  src={`${image}?auto=format&fit=crop&w=300&q=75`}
+                  alt={`Thumbnail ${index + 1}`}
+                  fill
+                  sizes="120px"
+                  className="object-cover"
+                />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
     </div>
   );
 }
