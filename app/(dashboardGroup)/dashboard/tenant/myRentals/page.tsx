@@ -18,11 +18,10 @@ const MyRentalPage = async () => {
     );
     const rentals = await res.json();
 
-    console.log(rentals);
     return (
         <div className='w-11/12 mx-auto '>
             <Card>
-                <div>
+                <div className='w-11/12 mx-auto rounded-lg py-4 px-8 bg-amber-400 text-black'>
                     <h1 className='text-2xl font-semibold text-center'>My Rental Request</h1>
                 </div>
                 <div>

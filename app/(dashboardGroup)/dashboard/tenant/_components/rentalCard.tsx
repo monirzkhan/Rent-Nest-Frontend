@@ -4,18 +4,20 @@ import { Button } from "@/components/ui/button";
 import { IRentalRequest } from "@/lib/types";
 import { Card } from "@/components/ui/card";
 import { CalendarIcon, ClockIcon, HomeIcon } from "lucide-react";
+import { rentalPaymentCheckout } from '@/app/(publicGroup)/_actions/rentalPayment';
+import { PaymentButton } from './PaymentButton';
 
 type IRentalProps = {
     rental: IRentalRequest;
 };
 
 export function RentalCard({ rental }: IRentalProps) {
-    const formattedDate = rental.moveInDate 
+    const formattedDate = rental.moveInDate
         ? new Date(rental.moveInDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
         : "N/A";
 
     return (
-        <Card className="flex flex-col md:flex-row items-start md:items-center justify-between p-5 my-4 gap-6 hover:shadow-md transition-shadow">
+        <Card className="flex m-4 flex-col md:flex-row items-start md:items-center justify-between p-5 my-4 gap-6 hover:shadow-md transition-shadow">
             {/* Property Info */}
             <div className="flex items-center gap-4 flex-[2] w-full min-w-0">
                 <div className="bg-primary/10 p-3 rounded-xl text-primary shrink-0">
@@ -60,18 +62,21 @@ export function RentalCard({ rental }: IRentalProps) {
             </div>
 
             {/* Action / Payment */}
+
+
             <div className="flex-1 flex justify-start md:justify-end w-full md:w-auto">
                 {rental.status === "ACTIVE" ? (
                     <Button className="w-full md:w-auto">Make Payment</Button>
                 ) : rental.status === "APPROVED" ? (
-                     <Button  variant={'default'} className="w-full bg-green-600 md:w-auto">Pay Rent</Button>
+                    <PaymentButton id={rental.id} />
                 ) : (
                     <Button disabled variant="ghost" className="w-full md:w-auto">
                         Waiting for Approval
                     </Button>
                 )}
-                
+
             </div>
+
         </Card>
     );
 }
