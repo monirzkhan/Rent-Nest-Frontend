@@ -48,10 +48,10 @@ export default function RentRequestModal({ propertyId, rentAmount, isLoggedIn }:
 
         if (result.success) {
             toast.success('Rental request submitted successfully!');
-            toast.info('You can check your rental request status in your dashboard.', { duration: 5000 });
+            
             setIsOpen(false);
             // Optionally refresh or redirect
-            // router.refresh();
+            router.push(`/dashboard/tenant/myRentals`);
         } else {
             toast.error(result.message || 'Failed to submit rental request');
         }

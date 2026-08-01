@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { CalendarIcon, ClockIcon, HomeIcon } from "lucide-react";
 import { rentalPaymentCheckout } from '@/app/(publicGroup)/_actions/rentalPayment';
 import { PaymentButton } from './PaymentButton';
+import Link from 'next/link';
 
 type IRentalProps = {
     rental: IRentalRequest;
@@ -56,7 +57,7 @@ export function RentalCard({ rental }: IRentalProps) {
                 ) : rental.status === "PENDING" ? (
                     <Badge variant="destructive">{rental.status}</Badge>
                 ) : (
-                    <Badge variant="warning-outline">{rental.status}</Badge>
+                    <Badge variant="warning">{rental.status}</Badge>
                 )}
                 <p className="text-sm text-gray-500 mt-1">Request Status</p>
             </div>
@@ -65,8 +66,10 @@ export function RentalCard({ rental }: IRentalProps) {
 
 
             <div className="flex-1 flex justify-start md:justify-end w-full md:w-auto">
-                {rental.status === "ACTIVE" ? (
-                    <Button className="w-full md:w-auto">Make Payment</Button>
+                {rental.status === "COMPLETED" ? (
+                    <Link href={'/dashboard/tenant/myReview'} className="underline text-blue-500">
+                        Write Review
+                    </Link>
                 ) : rental.status === "APPROVED" ? (
                     <PaymentButton id={rental.id} />
                 ) : (
