@@ -16,7 +16,7 @@ const DynamicPropertyPage = async ({
     const cookieStore = await cookies();
     const isLoggedIn = !!cookieStore.get('accessToken')?.value;
 
-    const data = await fetch(`https://rentnest-seven.vercel.app/api/properties/${id}`, { cache: 'no-store' })
+    const data = await fetch(`${process.env.BACKEND_API_URL}/api/properties/${id}`, { cache: 'no-store' })
     const property = await data.json()
     const propData = property?.data || {};
 

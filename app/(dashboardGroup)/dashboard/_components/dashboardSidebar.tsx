@@ -34,9 +34,9 @@ export default function DashboardSidebar({ user }: NavbarProps) {
   return (
     <Sidebar
       collapsible="icon"
-      className="border-r border-sidebar-border bg-sidebar transition-all duration-300"
+      className="border-r  border-sidebar-border bg-sidebar transition-all duration-300"
     >
-      <SidebarHeader className="py-4 px-3 border-b border-sidebar-border/50">
+      <SidebarHeader className="py-4 px-1 border-b border-sidebar-border/50">
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm transition-transform hover:scale-105">
             <HousePlus className="h-5 w-5" />

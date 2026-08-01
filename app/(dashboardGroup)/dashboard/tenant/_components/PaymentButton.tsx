@@ -23,7 +23,7 @@ export function PaymentButton({ id }: { id: string }) {
     }
 
     return (
-        <Button onClick={handlePayment} disabled={pending} className="w-full md:w-auto">
+        <Button onClick={handlePayment} disabled={pending} className="w-full md:w-auto bg-green-500">
             {pending ? "Redirecting..." : "Pay Now"}
         </Button>
     )

@@ -1,32 +1,44 @@
 import React from 'react';
 import { Badge } from "@/components/reui/badge";
 import { Button } from "@/components/ui/button";
-import { IRentalRequest } from "@/lib/types";
+
 import { Card } from "@/components/ui/card";
-import { CalendarIcon, ClockIcon, HomeIcon } from "lucide-react";
+import { Banknote, CalendarIcon, ClockIcon, HomeIcon } from "lucide-react";
 import { rentalPaymentCheckout } from '@/app/(publicGroup)/_actions/rentalPayment';
 import { PaymentButton } from './PaymentButton';
 import Link from 'next/link';
 
-type IRentalProps = {
-    rental: IRentalRequest;
+interface IPaymentRequest {
+    id: string;
+    transactionId: string;
+    amount: number;
+    status: string;
+    moveInDate: string;
+    durationMonths: number;
+    paidAt: string;
+    property: {
+        title: string;
+    };
+}
+type IPaymentProps = {
+    payment: IPaymentRequest;
 };
 
-export function RentalCard({ rental }: IRentalProps) {
-    const formattedDate = rental.moveInDate
-        ? new Date(rental.moveInDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+export function PaymentCard({ payment }: IPaymentProps) {
+    const formattedDate = payment.paidAt
+        ? new Date(payment.paidAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
         : "N/A";
 
     return (
         <Card className="flex border-amber-200 border-1 m-4 flex-col md:flex-row items-start md:items-center justify-between p-5 my-4 gap-6 hover:shadow-md transition-shadow">
-            {/* Property Info */}
+            {/* Payment Info */}
             <div className="flex items-center gap-4 flex-[2] w-full min-w-0">
                 <div className="bg-primary/10 p-3 rounded-xl text-primary shrink-0">
                     <HomeIcon className="w-6 h-6" />
                 </div>
                 <div className="min-w-0">
-                    <h3 className="font-semibold text-lg line-clamp-2" title={rental.property?.title}>{rental.property?.title || "Unknown Property"}</h3>
-                    <p className="text-sm text-gray-500 mt-0.5">Property Name</p>
+                    <h3 className="font-semibold text-xs line-clamp-2 truncate" title={payment.transactionId}>{payment.transactionId}</h3>
+                    <p className="text-sm text-gray-500 mt-0.5">Transaction ID</p>
                 </div>
             </div>
 
@@ -36,51 +48,51 @@ export function RentalCard({ rental }: IRentalProps) {
                     <CalendarIcon className="w-4 h-4 text-gray-500" />
                     <span className="font-medium text-gray-700">{formattedDate}</span>
                 </div>
-                <p className="text-sm text-gray-500">Move-in Date</p>
+                <p className="text-sm text-gray-500">Paid At</p>
             </div>
 
             {/* Duration */}
             <div className="flex-1 flex flex-col w-full">
                 <div className="flex items-center gap-2">
-                    <ClockIcon className="w-4 h-4 text-gray-500" />
-                    <span className="font-medium text-gray-700">{rental.durationMonths} Months</span>
+                    <Banknote className="w-4 h-4 text-gray-500" />
+                    <span className="font-medium text-gray-700">{payment.amount} </span>
                 </div>
-                <p className="text-sm text-gray-500">Duration</p>
+                <p className="text-sm text-gray-500">Amount</p>
             </div>
 
             {/* Status */}
             <div className="flex-1 flex flex-col items-start md:items-center w-full">
-                {rental.status === "APPROVED" ? (
-                    <Badge variant="info">{rental.status}</Badge>
-                ) : rental.status === "REJECTED" ? (
-                    <Badge variant="destructive">{rental.status}</Badge>
-                ) : rental.status === "PENDING" ? (
-                    <Badge variant="warning">{rental.status}</Badge>
-                ) : rental.status === "ACTIVE" ? (
-                    <Badge variant="success">{rental.status}</Badge>
+                {payment.status === "APPROVED" ? (
+                    <Badge variant="info">{payment.status}</Badge>
+                ) : payment.status === "REJECTED" ? (
+                    <Badge variant="destructive">{payment.status}</Badge>
+                ) : payment.status === "PENDING" ? (
+                    <Badge variant="warning">{payment.status}</Badge>
+                ) : payment.status === "PAID" ? (
+                    <Badge variant="success">{payment.status}</Badge>
                 ) : (
-                    <Badge variant="secondary">{rental.status}</Badge>
+                    <Badge variant="secondary">{payment.status}</Badge>
                 )}
                 <p className="text-sm text-gray-500 mt-1">Request Status</p>
             </div>
 
             {/* Action / Payment */}
 
-
+{/* 
             <div className="flex-1 flex justify-start md:justify-end w-full md:w-auto">
-                {rental.status === "COMPLETED" ? (
-                    <Link href={`/dashboard/tenant/myReview/${rental.id}`} className="underline text-blue-500">
+                {payment.status === "COMPLETED" ? (
+                    <Link href={`/dashboard/tenant/myReview/${payment.id}`} className="underline text-blue-500">
                         Write Review
                     </Link>
-                ) : rental.status === "APPROVED" ? (
-                    <PaymentButton id={rental.id} />
+                ) : payment.status === "APPROVED" ? (
+                    <PaymentButton id={payment.id} />
                 ) : (
                     <Button disabled variant="ghost" className="w-full md:w-auto">
                         Waiting for Approval
                     </Button>
                 )}
 
-            </div>
+            </div> */}
 
         </Card>
     );

@@ -12,13 +12,13 @@ type IRentalProps = {
     rental: IRentalRequest;
 };
 
-export function RentalCard({ rental }: IRentalProps) {
+export function RentalStats({ rental }: IRentalProps) {
     const formattedDate = rental.moveInDate
         ? new Date(rental.moveInDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
         : "N/A";
 
     return (
-        <Card className="flex border-amber-200 border-1 m-4 flex-col md:flex-row items-start md:items-center justify-between p-5 my-4 gap-6 hover:shadow-md transition-shadow">
+        <Card className="flex border-blue-200 border-1 m-4 flex-col md:flex-row items-start md:items-center justify-between p-5 my-4 gap-6 hover:shadow-md transition-shadow">
             {/* Property Info */}
             <div className="flex items-center gap-4 flex-[2] w-full min-w-0">
                 <div className="bg-primary/10 p-3 rounded-xl text-primary shrink-0">
@@ -31,22 +31,9 @@ export function RentalCard({ rental }: IRentalProps) {
             </div>
 
             {/* Move-in Date */}
-            <div className="flex-1 flex flex-col w-full">
-                <div className="flex items-center gap-2">
-                    <CalendarIcon className="w-4 h-4 text-gray-500" />
-                    <span className="font-medium text-gray-700">{formattedDate}</span>
-                </div>
-                <p className="text-sm text-gray-500">Move-in Date</p>
-            </div>
+           
 
-            {/* Duration */}
-            <div className="flex-1 flex flex-col w-full">
-                <div className="flex items-center gap-2">
-                    <ClockIcon className="w-4 h-4 text-gray-500" />
-                    <span className="font-medium text-gray-700">{rental.durationMonths} Months</span>
-                </div>
-                <p className="text-sm text-gray-500">Duration</p>
-            </div>
+         
 
             {/* Status */}
             <div className="flex-1 flex flex-col items-start md:items-center w-full">
