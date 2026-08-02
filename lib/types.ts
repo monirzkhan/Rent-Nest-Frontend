@@ -132,3 +132,23 @@ export type ITenant = {
     createdAt: string;
     updatedAt: string;
 };
+
+export type CategoryOption = {
+    id: string;
+    name: string;
+    slug?: string;
+};
+
+export type PropertyFormState = {
+    title: string;
+    description: string;
+    rentAmount: string;
+    bedrooms: string;
+    bathrooms: string;
+    areas: string;
+    address: string;
+    thumbnail: string;
+    images: string;
+    status: string;
+    categoryId: string;
+};

@@ -11,12 +11,12 @@ export const LANDLORD_SIDEBAR_ITEMS : ISidebarItem[] = [
     },
     {
         label : "My Properties",
-        href : "/dashboard/landlord/myProperties",
+        href : "/dashboard/landlord/properties",
         icon : Home
     },
     {
         label : "My Rental Request",
-        href : "/dashboard/landlord/myRentalsRequest",
+        href : "/dashboard/landlord/requests",
         icon : Book
     },
 ]
