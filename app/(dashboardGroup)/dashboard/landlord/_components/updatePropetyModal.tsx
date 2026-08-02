@@ -1,13 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Building2, Home, ImageIcon, MapPin, Sparkles, X } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { Building2, ImageIcon, MapPin, PenIcon, Sparkles, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { postPropertyAction } from '../_actions/postPropertyAction';
-import { CategoryOption, PropertyFormState } from '@/lib/types';
-
-
+import { CategoryOption, IProperty, PropertyFormState } from '@/lib/types';
+import { updatePropertyAction } from '../_actions/updatePropertyAction';
 
 const initialFormState: PropertyFormState = {
     title: '',
@@ -23,13 +22,33 @@ const initialFormState: PropertyFormState = {
     categoryId: '',
 };
 
-export default function PostPropertyModal({ isLoggedIn }: { isLoggedIn: boolean }) {
+export default function UpdatePropertyModal({ property, isLoggedIn }: { property: IProperty; isLoggedIn: boolean }) {
     const [isOpen, setIsOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isLoadingCategories, setIsLoadingCategories] = useState(false);
     const [categories, setCategories] = useState<CategoryOption[]>([]);
     const [formData, setFormData] = useState<PropertyFormState>(initialFormState);
     const router = useRouter();
+
+    const buildFormState = (selectedProperty?: IProperty): PropertyFormState => ({
+        title: selectedProperty?.title || '',
+        description: selectedProperty?.description || '',
+        rentAmount: selectedProperty?.rentAmount?.toString() || '',
+        bedrooms: selectedProperty?.bedrooms?.toString() || '',
+        bathrooms: selectedProperty?.bathrooms?.toString() || '',
+        areas: selectedProperty?.areas?.toString() || '',
+        address: selectedProperty?.address || '',
+        thumbnail: selectedProperty?.thumbnail || '',
+        images: selectedProperty?.images?.join(', ') || '',
+        status: selectedProperty?.status || 'AVAILABLE',
+        categoryId: selectedProperty?.categoryId || '',
+    });
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        setFormData(buildFormState(property));
+    }, [isOpen, property]);
 
     useEffect(() => {
         if (!isOpen) return;
@@ -62,7 +81,7 @@ export default function PostPropertyModal({ isLoggedIn }: { isLoggedIn: boolean 
 
     const handleOpen = () => {
         if (!isLoggedIn) {
-            toast.error('You must be logged in to post a property.');
+            toast.error('You must be logged in to update a property.');
             return;
         }
         setIsOpen(true);
@@ -94,6 +113,7 @@ export default function PostPropertyModal({ isLoggedIn }: { isLoggedIn: boolean 
         setIsSubmitting(true);
 
         const payload = {
+            id: property.id,
             title: formData.title.trim(),
             description: formData.description.trim(),
             rentAmount: Number(formData.rentAmount),
@@ -110,16 +130,16 @@ export default function PostPropertyModal({ isLoggedIn }: { isLoggedIn: boolean 
             categoryId: formData.categoryId.trim(),
         };
 
-        const result = await postPropertyAction(payload);
+        const result = await updatePropertyAction(payload);
         setIsSubmitting(false);
 
         if (result?.success) {
-            toast.success('Property posted successfully!');
+            toast.success('Property updated successfully!');
             setFormData(initialFormState);
             setIsOpen(false);
-            router.push('/dashboard/landlord/myProperties');
+            router.push('/dashboard/landlord/properties');
         } else {
-            toast.error(result?.message || 'Failed to post property.');
+            toast.error(result?.message || 'Failed to update property.');
         }
     };
 
@@ -129,25 +149,25 @@ export default function PostPropertyModal({ isLoggedIn }: { isLoggedIn: boolean 
                 onClick={handleOpen}
                 className="inline-flex items-center gap-2 rounded-lg bg-[#00C194] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#00a881]"
             >
-                <Home className="h-4 w-4" />
-                Post Property
+                <PenIcon className="h-4 w-4" />
+                Edit Property
             </button>
 
-            {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-4">
+            {isOpen && typeof window !== 'undefined' && createPortal(
+                <div className="fixed inset-0 z-100 flex items-center justify-center bg-slate-950/70 p-4">
                     <div className="flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-card text-card-foreground shadow-2xl">
                         <div className="flex items-center justify-between border-b border-border bg-muted/50 px-5 py-4">
                             <div>
                                 <p className="flex items-center gap-2 text-sm font-semibold text-[#00C194]">
                                     <Building2 className="h-4 w-4" />
-                                    Add a New Listing
+                                    Edit Your Property
                                 </p>
                                 <h2 className="text-xl font-bold text-foreground">Property Details</h2>
                             </div>
                             <button
                                 type="button"
                                 onClick={() => setIsOpen(false)}
-                                className="rounded-full p-2 transition hover:bg-slate-200"
+                                className="rounded-full p-2 transition hover:bg-muted"
                             >
                                 <X className="h-5 w-5 text-muted-foreground" />
                             </button>
@@ -335,11 +355,12 @@ export default function PostPropertyModal({ isLoggedIn }: { isLoggedIn: boolean 
                                 disabled={isSubmitting}
                                 className="rounded-lg bg-[#00C194] px-4 py-2 font-medium text-white transition hover:bg-[#00a881] disabled:cursor-not-allowed disabled:opacity-70"
                             >
-                                {isSubmitting ? 'Posting...' : 'Publish Property'}
+                                {isSubmitting ? 'Updating...' : 'Update Property'}
                             </button>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
         </>
     );

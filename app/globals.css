@@ -157,3 +157,64 @@
     @apply font-sans;
     }
 }
+
+@layer utilities {
+  .text-gray-400,
+  .text-gray-500,
+  .text-gray-600,
+  .text-gray-700,
+  .text-gray-800,
+  .text-gray-900,
+  .text-slate-400,
+  .text-slate-500,
+  .text-slate-600,
+  .text-slate-700,
+  .text-slate-800,
+  .text-slate-900,
+  .text-zinc-400,
+  .text-zinc-500,
+  .text-zinc-600,
+  .text-zinc-700,
+  .text-zinc-800,
+  .text-zinc-900,
+  .text-black {
+    color: var(--foreground) !important;
+  }
+
+  .text-gray-300,
+  .text-slate-300,
+  .text-zinc-300 {
+    color: var(--muted-foreground) !important;
+  }
+
+  .bg-white,
+  .bg-gray-50,
+  .bg-gray-100,
+  .bg-slate-50,
+  .bg-slate-100,
+  .bg-zinc-50,
+  .bg-zinc-100 {
+    background-color: var(--card) !important;
+  }
+
+  .bg-gray-200,
+  .bg-slate-200,
+  .bg-zinc-200 {
+    background-color: var(--muted) !important;
+  }
+
+  .border-gray-200,
+  .border-gray-300,
+  .border-slate-200,
+  .border-slate-300,
+  .border-zinc-200,
+  .border-zinc-300 {
+    border-color: var(--border) !important;
+  }
+
+  .placeholder-gray-400::placeholder,
+  .placeholder-slate-400::placeholder,
+  .placeholder-zinc-400::placeholder {
+    color: var(--muted-foreground) !important;
+  }
+}

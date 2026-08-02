@@ -163,7 +163,7 @@ const Navbar = ({ user }: NavbarProps) => {
                                 : "bg-transparent border-transparent"
                         )}
                     >
-                        <a href={'/'} className="text-2xl text-blue-600 font-bold flex items-center justify-center gap-2">
+                        <a href={'/'} className="text-lg md:text-2xl text-blue-600 font-bold flex items-center justify-center gap-2">
                          <HousePlus></HousePlus>  Rent Nest
                         </a>
                         <div>

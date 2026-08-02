@@ -1,125 +1,130 @@
 "use client";
 
-import { BadgeAlert, MapPinCheck, OctagonX, SquarePen, User } from "lucide-react";
+import { AreaChartIcon, BadgeAlert, Bath, BedDouble, MapPinCheck, OctagonX, SquarePen, Star, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
 import styled from "styled-components";
 import { IProperty } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 
+import UpdatePropertyModal from "./updatePropetyModal";
+import { ConfirmDeleteToast } from "./deletePropertyToast";
+
 type IpropertyProps = {
-    property: IProperty
+  property: IProperty,
+  isLoggedIn: boolean
 }
 
-const PropertyCardLandlord = ({ property }: IpropertyProps) => {
-
-    return (
-        <StyledWrapper>
-            <div className="card" style={{ position: 'relative', width: '320px', height: '420px' }}>
-                <div className="content" style={{ position: 'relative', width: '100%', height: '100%' }}>
-                    {/* Back Side */}
-                    <div className="back" style={{ position: 'absolute', inset: 0 }}>
-                        <div className="back-content" style={{ position: 'relative', width: '100%', height: '100%' }}>
-                            <Image
-                                src={property.thumbnail}
-                                alt="Property"
-                                fill
-                                className="property-image"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
-                            <div className="back-overlay" />
-                            <strong>{property.category.name}</strong>
-                        </div>
-                    </div>
-
-                    {/* Front Side */}
-                    <div className="front" style={{ position: 'absolute', inset: 0 }}>
-                        <div className="img" style={{ position: 'relative', width: '100%', height: '100%' }}>
-                            <Image
-                                src={property.thumbnail}
-                                alt="Property"
-                                fill
-                                className="property-image"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
-
-                            <div className="overlay" />
-
-                            <div className="circle"></div>
-                            <div className="circle" id="right"></div>
-                            <div className="circle" id="bottom"></div>
-                        </div>
-
-                        <div className="front-content">
-                            <div className="flex items-center justify-between ">
-                                {
-                                    property.status === "RENTED" ?
-                                        <div className=" ">
-
-                                            <small className="flex items-center gap-2 rounded-lg bg-red-600 text-white px-4 py-2 w-30 font-bold"> <BadgeAlert></BadgeAlert> {property.status}</small>
-                                        </div>
-                                        :
-                                        < div>
-
-                                            <small className="flex items-center gap-2 rounded-lg bg-green-600 text-white px-4 py-2 w-35 font-bold"> <MapPinCheck></MapPinCheck> {property.status}</small>
-                                        </div>
-                                }
-                                <Button className="bg-red-500 hover:bg-red-600 text-white">
-                                    <OctagonX /> Delete
-                                </Button>
-                            </div>
-
-
-
-                            <div className="description space-y-3">
-                                <div className="title ">
-                                    <p>
-                                        <strong>{property.title}</strong>
-                                    </p>
-
-                                    <svg
-                                        fill="#20c997"
-                                        width="18"
-                                        height="18"
-                                        viewBox="0 0 32 32"
-                                    >
-                                        <path d="M25 27l-9-6.75L7 27V4h18z" />
-                                    </svg>
-
-                                </div>
-                                <div className="button-group">
-                                    <Link href={`/properties/${property.id}`} className="btn btn-primary">
-                                        View
-                                    </Link>
-
-                                    <Link href="/login" className="btn btn-secondary flex items-center gap-2">
-                                        <SquarePen /> Edit Property
-                                    </Link>
-
-                                </div>
-
-                                <p className="location">📍 {property.address}</p>
-                                <div className="flex items-center-safe">
-                                    <User></User>
-
-                                    <p>  {property.landlord.name}</p>
-                                </div>
-
-                                <p className="price">${property.rentAmount} / Month</p>
-
-                                <p className="card-footer">
-                                    🛏 {property.bedrooms} Beds &nbsp; | &nbsp; 🚿 {property.bathrooms} Baths &nbsp; | &nbsp; 📐
-                                    {property.areas} sqft
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+const PropertyCardLandlord = ({ property, isLoggedIn }: IpropertyProps) => {
+  return (
+    <StyledWrapper>
+      <div className="card" style={{ position: 'relative', width: '320px', height: '420px' }}>
+        <div className="content" style={{ position: 'relative', width: '100%', height: '100%' }}>
+          {/* Back Side */}
+          <div className="back" style={{ position: 'absolute', inset: 0 }}>
+            <div className="back-content" style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <Image
+                src={property.thumbnail}
+                alt="Property"
+                fill
+                className="property-image"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+              <div className="back-overlay" />
+              <strong>{property.category.name}</strong>
             </div>
-        </StyledWrapper>
-    );
+          </div>
+
+          {/* Front Side */}
+          <div className="front" style={{ position: 'absolute', inset: 0 }}>
+            <div className="img" style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <Image
+                src={property.thumbnail}
+                alt="Property"
+                fill
+                className="property-image"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+
+              <div className="overlay" />
+
+              <div className="circle"></div>
+              <div className="circle" id="right"></div>
+              <div className="circle" id="bottom"></div>
+            </div>
+
+            <div className="front-content">
+              <div className="flex items-center justify-between ">
+                {
+                  property.status === "RENTED" ?
+                    <div className=" ">
+
+                      <small className="flex items-center gap-2 rounded-lg bg-red-600 text-white px-4 py-2 w-30 font-bold"> <BadgeAlert></BadgeAlert> {property.status}</small>
+                    </div>
+                    :
+                    < div>
+
+                      <small className="flex items-center gap-2 rounded-lg bg-green-600 text-white px-4 py-2 w-35 font-bold"> <MapPinCheck></MapPinCheck> {property.status}</small>
+                    </div>
+                }
+                <ConfirmDeleteToast property={property} isLoggedIn={isLoggedIn} />
+               
+              </div>
+
+
+
+              <div className="description space-y-3">
+                <div className="title ">
+                  <p>
+                    <strong>{property.title}</strong>
+                  </p>
+
+                  <svg
+                    fill="#20c997"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 32 32"
+                  >
+                    <path d="M25 27l-9-6.75L7 27V4h18z" />
+                  </svg>
+
+                </div>
+                {/* <div>
+                  <Star className="h-4 w-4 text-yellow-400 inline-block" />
+                  <span className="text-sm text-gray-300 ml-1">{property.reviews.ratings || property.reviews.comment}</span>
+                </div> */}
+                <div className="button-group">
+                  <Link href={`/properties/${property.id}`} className="btn btn-primary px-4 py-2 flex items-center gap-2">
+                    View
+                  </Link>
+                  <div>
+                    <UpdatePropertyModal property={property} isLoggedIn={isLoggedIn} />
+                  </div>
+
+                </div>
+
+                <p className="location">📍 {property.address}</p>
+                <div className="flex items-center gap-2">
+                  <User className="h-4 w-4"></User>
+
+                  <p>  {property.landlord.name}</p>
+                </div>
+                <p className="price">${property.rentAmount} / Month</p>
+
+
+                <p className=" text-xs flex justify-center  gap-2">
+                  <BedDouble className="h-4 w-4" /> {property.bedrooms}  &nbsp; | &nbsp; <Bath className="h-4 w-4" /> {property.bathrooms} Baths &nbsp; | &nbsp; <AreaChartIcon className="h-4 w-4" />
+                  {property.areas} sqft
+                </p>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </StyledWrapper>
+  );
 };
 
 const StyledWrapper = styled.div`

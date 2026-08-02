@@ -46,6 +46,10 @@ export type IProperty = {
         createdAt: string;
         updatedAt: string;
     };
+    reviews: {
+        ratings: number;
+        comment: string;
+    };
 };
 
 

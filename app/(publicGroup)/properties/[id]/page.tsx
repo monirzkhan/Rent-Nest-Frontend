@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, ChevronDown, ChevronLeft, ChevronRight, Tag, Target, Home, Calendar1Icon, InfoIcon } from 'lucide-react';
+import { Phone, Mail, ChevronDown, ChevronLeft, ChevronRight, Tag, Target, Home, Calendar1Icon, InfoIcon, BedDouble, Bath, AreaChartIcon } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import PropertyImageGallery from './_components/PropertyImageGallery';
@@ -29,7 +29,7 @@ const DynamicPropertyPage = async ({
                 <div className="md:flex justify-between items-center mb-6">
                     <div className="space-y-2 ">
                         <div className="flex items-center mb-3 gap-3 ">
-                            <span className="bg-primary text-white px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 shadow-sm">
+                            <span className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 shadow-sm">
                                 <Home className="w-4 h-4" fill="currentColor" /> {propData?.category?.name}
                             </span>
                             {
@@ -61,14 +61,14 @@ const DynamicPropertyPage = async ({
                                 :
                                 <>
                                     <Card className='py-2.5 px-4 rounded-lg bg-amber-400'>
-                                        <div className="text-primary font-semibold text-xl  md:text-base">
+                                        <div className="text-secondary font-semibold text-lg  md:text-primary">
                                             $ {propData.rentAmount}/ <span className='text-sm'>Month</span>
                                         </div>
                                     </Card>
-                                    <RentRequestModal 
-                                        propertyId={id} 
-                                        rentAmount={propData.rentAmount || 0} 
-                                        isLoggedIn={isLoggedIn} 
+                                    <RentRequestModal
+                                        propertyId={id}
+                                        rentAmount={propData.rentAmount || 0}
+                                        isLoggedIn={isLoggedIn}
                                     />
                                 </>
                         }
@@ -89,9 +89,9 @@ const DynamicPropertyPage = async ({
 
                 </div>
                 <Card className='p-4 bg-secondary xs:hidden'>
-                    <div className="text-gray-700 font-medium text-sm md:text-base">
-                    Property ID: {id}
-                </div>
+                    <div className="text-gray-700 font-medium text-xs md:text-base">
+                        Property ID: {id}
+                    </div>
                 </Card>
             </div>
 
@@ -100,10 +100,10 @@ const DynamicPropertyPage = async ({
                 {/* Left Column */}
                 <div className="lg:w-2/3">
                     {/* Main Image and Thumbnails */}
-                    <PropertyImageGallery 
-                        mainImage={propData.thumbnail} 
-                        thumbnails={propData.images} 
-                        title={propData.title} 
+                    <PropertyImageGallery
+                        mainImage={propData.thumbnail}
+                        thumbnails={propData.images}
+                        title={propData.title}
                     />
 
                     {/* Description Accordion */}
@@ -117,8 +117,10 @@ const DynamicPropertyPage = async ({
                             <p>{propData.description}</p>
                             <Card className='my-4'>
                                 <p className="flex gpa-3 p-4 items-center justify-center">
-                                    🛏 {propData.bedrooms} Beds &nbsp; | &nbsp; 🚿 {propData.bathrooms}  Baths &nbsp; | &nbsp; 📐
-                                    {propData.areas} sqft
+                                    <p className=" text-xs flex justify-center  gap-2">
+                                        <BedDouble className="h-4 w-4" /> {propData.bedrooms}  &nbsp; | &nbsp; <Bath className="h-4 w-4" /> {propData.bathrooms} Baths &nbsp; | &nbsp; <AreaChartIcon className="h-4 w-4" />
+                                        {propData.areas} sqft
+                                    </p>
                                 </p>
                             </Card>
 
@@ -171,10 +173,10 @@ const DynamicPropertyPage = async ({
                                                 $ {propData.rentAmount}/ <span className='text-sm'>Month</span>
                                             </div>
                                         </Card>
-                                        <RentRequestModal 
-                                            propertyId={id} 
-                                            rentAmount={propData.rentAmount || 0} 
-                                            isLoggedIn={isLoggedIn} 
+                                        <RentRequestModal
+                                            propertyId={id}
+                                            rentAmount={propData.rentAmount || 0}
+                                            isLoggedIn={isLoggedIn}
                                         />
                                     </>
                             }
@@ -206,7 +208,7 @@ const DynamicPropertyPage = async ({
                             </div>
                             <div>
                                 <Button type='submit'>
-                                Send Enquiry
+                                    Send Enquiry
                                 </Button>
                             </div>
                         </form>

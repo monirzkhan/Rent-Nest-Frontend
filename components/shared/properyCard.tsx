@@ -1,6 +1,6 @@
 "use client";
 
-import { BadgeAlert, MapPinCheck, User } from "lucide-react";
+import { AreaChartIcon, BadgeAlert, Bath, BedDouble, MapPinCheck, Star, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -9,7 +9,7 @@ import RentRequestModal from "@/app/(publicGroup)/properties/[id]/_components/Re
 import { div } from "framer-motion/client";
 import { IProperty } from "@/lib/types";
 
-type IpropertyProps={
+type IpropertyProps = {
   property: IProperty
 }
 
@@ -82,6 +82,11 @@ const PropertyCard = ({ property }: IpropertyProps) => {
                   </svg>
 
                 </div>
+                {/* <div>
+                  <Star className="h-4 w-4 text-yellow-400 inline-block" />
+                  <span className="text-sm text-gray-300 ml-1">{property.reviews.ratings || 5}</span>
+                  <span className="text-sm text-gray-300 ml-1">{property.reviews.comment || "No comments yet"}</span>
+                </div> */}
                 <div className="button-group">
                   <Link href={`/properties/${property.id}`} className="btn btn-primary">
                     View
@@ -94,16 +99,16 @@ const PropertyCard = ({ property }: IpropertyProps) => {
                 </div>
 
                 <p className="location">📍 {property.address}</p>
-                <div className="flex items-center-safe">
-                  <User></User>
+                <div className="flex items-center gap-2">
+                  <User className="h-4 w-4"></User>
 
                   <p>  {property.landlord.name}</p>
                 </div>
-
                 <p className="price">${property.rentAmount} / Month</p>
 
-                <p className="card-footer">
-                  🛏 {property.bedrooms} Beds &nbsp; | &nbsp; 🚿 {property.bathrooms} Baths &nbsp; | &nbsp; 📐
+
+                <p className=" text-xs flex justify-center  gap-2">
+                  <BedDouble className="h-4 w-4" /> {property.bedrooms}  &nbsp; | &nbsp; <Bath className="h-4 w-4" /> {property.bathrooms} Baths &nbsp; | &nbsp; <AreaChartIcon className="h-4 w-4" />
                   {property.areas} sqft
                 </p>
 
