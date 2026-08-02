@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { logout } from "@/service/logout";
 import { useRouter } from "next/navigation";
 import { IUser } from "@/lib/types";
+import Switch from "./toggleTheme";
 
 export type NavigationSection = {
     title: string;
@@ -183,7 +184,7 @@ const Navbar = ({ user }: NavbarProps) => {
                         </div>
                         {/* darkmood/night mood */}
                         <div className="-mr-30 md:-mr-65">
-                            <Sun></Sun>
+                           <Switch></Switch>
                         </div>
                         {/* User Dropdown */}
                        <div className=" md: ml:0 ml-30">

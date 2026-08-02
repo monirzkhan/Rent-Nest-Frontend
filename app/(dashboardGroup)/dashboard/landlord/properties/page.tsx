@@ -21,14 +21,14 @@ const MyPropertiesPage = async () => {
     const properties = await res.json();
 
     return (
-        <Card className="mx-auto mt-4 flex w-11/12 flex-col gap-4 p-4">
-            <Card className="rounded-lg bg-blue-500 p-4 text-center text-primary-foreground">
-                <h1 className="text-2xl font-bold">My Properties</h1>
+        <Card className="mx-auto mt-4 flex w-11/12 flex-col gap-4 p-2">
+            <Card className="rounded-lg bg-blue-500 md:p-4 p-1  text-center text-primary-foreground">
+                <h1 className="text-xl font-bold">My Properties</h1>
             </Card>
             <div className="flex justify-end">
                 <PostPropertyModal isLoggedIn={isLoggedIn} />
             </div>
-            <Card className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 w-11/12 mx-auto">
+            <Card className="grid grid-cols-1 gap-4 md:p-4 p-1 md:grid-cols-2 w-11/12 mx-auto">
                 {properties.data.map((property: any) => (
                     <PropertyCardLandlord key={property.id} property={property} />
                 ))}
