@@ -32,6 +32,7 @@ export default async function RootLayout({
           {/* <Navbar user={user} /> */}
           {children}
           <Toaster position="top-right" richColors/>
+          
         </ThemeProvider>
       </body>
     </html>

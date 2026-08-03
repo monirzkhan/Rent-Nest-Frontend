@@ -23,7 +23,7 @@ const FeaturePropertyList = async () => {
             </div>
             <div className='flex justify-center'>
                 <Link href={"/properties"}>
-                <Button variant={"link"} >
+                <Button variant={"secondary"} >
                     Browse All
                 </Button>
                 </Link>

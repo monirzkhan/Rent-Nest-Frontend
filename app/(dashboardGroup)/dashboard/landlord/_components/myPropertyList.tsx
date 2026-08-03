@@ -28,11 +28,11 @@ const MyPropertyList = async () => {
         );
     }
     return (
-        <Card className="grid grid-cols-1 gap-4 md:p-4 p-1 md:grid-cols-2 w-11/12 mx-auto">
+        <div className="grid grid-cols-1 gap-4 md:p-4 m-1 md:grid-cols-2 w-11/12 mx-auto">
             {properties.data.map((property: any) => (
                 <PropertyCardLandlord key={property.id} property={property} isLoggedIn={isLoggedIn} />
             ))}
-        </Card>
+        </div>
     );
 };
 

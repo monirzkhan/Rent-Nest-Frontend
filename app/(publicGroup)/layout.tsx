@@ -13,7 +13,7 @@ export default async function PublicLayout({
     <div>
       <Navbar user={user} />
       {children}
-      <div className="min-h-screen w-full place-content-end pt-4">
+      <div className= "text-black bg-gradient-to-r from-green-400 to-emerald-500 w-full px-8 py-8  items-center justify-center space-y-12">
         <Footer />
       </div>
     </div>

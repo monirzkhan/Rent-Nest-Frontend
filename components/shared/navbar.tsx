@@ -187,10 +187,10 @@ const Navbar = ({ user }: NavbarProps) => {
                            <Switch></Switch>
                         </div>
                         {/* User Dropdown */}
-                       <div className=" md: ml:0 ml-30">
+                       <div className=" md:ml:0 ml-30">
                          {
                             user.success ? (
-                                <DropdownMenu>
+                                <DropdownMenu >
                                     <DropdownMenuTrigger asChild>
                                         <div className="cursor-pointer">
                                             <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -198,7 +198,7 @@ const Navbar = ({ user }: NavbarProps) => {
                                             </div>
                                         </div>
                                     </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end" className="w-56">
+                                    <DropdownMenuContent align="center" className="w-48 mr-4 mt-1">
                                         <DropdownMenuLabel className="font-normal">
                                             <div className="flex flex-col gap-1">
                                                 <p className="text-sm font-medium">

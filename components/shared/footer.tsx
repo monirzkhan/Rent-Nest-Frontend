@@ -21,7 +21,7 @@ export function Footer() {
 					<a className="w-max flex justify-center items-center gap-2" href="/">
 					<HousePlus></HousePlus>	Rent Nest
 					</a>
-					<p className="max-w-sm text-balance text-muted-foreground text-sm">
+					<p className="max-w-sm text-balance text-black text-sm">
 						Rent your dream home with ease. Our platform connects tenants and landlords, making the rental process seamless and efficient.
 					</p>
 					<div className="flex gap-2">
@@ -70,7 +70,7 @@ export function Footer() {
 			</div>
 			{/* <FullWidthDivider /> */}
 			<div className="flex items-center justify-center gap-2 py-4">
-				<p className="text-center font-light text-muted-foreground text-sm">
+				<p className="text-center font-light text-black text-sm">
 					&copy; {new Date().getFullYear()} Rent Nest, All rights reserved
 				</p>
 			</div>
