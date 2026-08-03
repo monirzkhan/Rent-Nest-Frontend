@@ -255,7 +255,7 @@ const RegistrationCard = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isHovered, setIsHovered] = useState(false);
-    const router=useRouter()
+    
 
     useEffect(() => {
         if (!state) {
@@ -263,7 +263,7 @@ const RegistrationCard = () => {
         }
         if (state.success) {
             toast.success('Account Created Successfully')
-            router.push('/login')
+            
             
         }
         if (!state.success) {
