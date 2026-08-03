@@ -16,6 +16,7 @@ type IpropertyProps = {
 }
 
 const PropertyCardLandlord = ({ property, isLoggedIn }: IpropertyProps) => {
+ 
   return (
     <StyledWrapper>
       <div className="card" style={{ position: 'relative', width: '320px', height: '420px' }}>

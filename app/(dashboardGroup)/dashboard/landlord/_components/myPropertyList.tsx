@@ -17,6 +17,16 @@ const MyPropertyList = async () => {
         }
     );
     const properties = await res.json();
+    if (!properties || !properties.data || properties.data.length === 0) {
+        return (
+            <Card className="mx-auto mt-4 flex w-11/12 flex-col gap-4 p-2">
+            
+                <div className="flex justify-center items-center h-full">
+                    <p className="text-gray-500 text-lg">No properties found.</p>
+                </div>
+            </Card>
+        );
+    }
     return (
         <Card className="grid grid-cols-1 gap-4 md:p-4 p-1 md:grid-cols-2 w-11/12 mx-auto">
             {properties.data.map((property: any) => (
