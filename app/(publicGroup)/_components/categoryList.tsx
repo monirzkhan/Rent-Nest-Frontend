@@ -6,7 +6,7 @@ import CategoryCard from './categoryCard';
 const CategoryList = async () => {
     const categoriesData= await getAllCategories()
     const categories = categoriesData.data
-    console.log("categories", categories)
+    
     if (!categories || categories.length === 0) {
         return (
             <div className="flex justify-center items-center h-full">
@@ -16,9 +16,8 @@ const CategoryList = async () => {
     }
 
     return (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 my-8">
+        <div className="w-11/12 mx-auto grid grid-cols-1 gap-4 md:grid-cols-3 my-8">
 
-       
         
             {
                 categories.slice(0,6).map((category: any) => (

@@ -76,7 +76,7 @@ export default function ContactForm() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="john@example.com"
+                  placeholder="monir@example.com"
                   className="pl-10"
                   required
                 />

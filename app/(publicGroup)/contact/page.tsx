@@ -3,7 +3,7 @@ import ContactForm from "../_components/contactForm";
 
 export default function ContactPage() {
   return (
-    <section className="container py-16">
+    <section className="container py-16 w-11/12 mx-auto">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold tracking-tight">
