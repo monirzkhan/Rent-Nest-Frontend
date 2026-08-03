@@ -14,19 +14,19 @@ export const ADMIN_SIDEBAR_ITEMS : ISidebarItem[] = [
         href : "/dashboard/admin/users",
         icon : UserIcon
     },
-    {
-        label : "Total Properties",
-        href : "/dashboard/admin/total-properties",
-        icon : Home
-    },
-    {
-        label : "Total Rentals",
-        href : "/dashboard/admin/total-rentals",
-        icon : BookmarkCheck
-    },
-    {
-        label : "Update Users",
-        href : "/dashboard/admin/update-users",
-        icon : UserShield
-    },
+    // {
+    //     label : "Total Properties",
+    //     href : "/dashboard/admin/total-properties",
+    //     icon : Home
+    // },
+    // {
+    //     label : "Total Rentals",
+    //     href : "/dashboard/admin/total-rentals",
+    //     icon : BookmarkCheck
+    // },
+    // {
+    //     label : "Update Users",
+    //     href : "/dashboard/admin/update-users",
+    //     icon : UserShield
+    // },
 ]
