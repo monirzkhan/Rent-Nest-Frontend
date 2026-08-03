@@ -4,7 +4,7 @@ import { InstagramIcon } from "@/components/icons/instagram-icon";
 import { XIcon } from "@/components/icons/x-icon";
 // import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import { HousePlus } from "lucide-react";
+import { HousePlus, Link } from "lucide-react";
 // import { FullWidthDivider } from "@/components/full-width-divider";
 
 export function Footer() {
@@ -112,7 +112,7 @@ const resources = [
 	},
 	{
 		title: "Contact Support",
-		href: "#",
+		href: "/contact",
 	},
 	{
 		title: "Community",
@@ -127,7 +127,7 @@ const resources = [
 const socialLinks = [
 	{
 		icon: <GithubIcon />,
-		link: "#",
+		link: "https://github.com/monirzkhan/Rent-Nest-Frontend",
 	},
 	{
 		icon: <InstagramIcon />,
@@ -136,5 +136,6 @@ const socialLinks = [
 	{
 		icon: <XIcon />,
 		link: "#",
-	},
+	}
+	
 ];

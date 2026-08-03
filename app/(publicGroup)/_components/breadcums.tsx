@@ -6,7 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { HouseHeartIcon, HouseIcon, LayoutDashboardIcon, SettingsIcon } from 'lucide-react'
+import { HouseHeartIcon, HouseIcon, HousePlus, LayoutDashboardIcon, SettingsIcon } from 'lucide-react'
 
 export function Breadcums() {
   return (
@@ -28,7 +28,7 @@ export function Breadcums() {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbPage className="flex items-center gap-1.5">
-            <HouseHeartIcon className="size-4" />
+            <HousePlus className="size-4" />
             Property List
           </BreadcrumbPage>
         </BreadcrumbItem>
