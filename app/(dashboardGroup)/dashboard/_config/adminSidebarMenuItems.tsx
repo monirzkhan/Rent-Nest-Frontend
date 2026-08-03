@@ -10,8 +10,8 @@ export const ADMIN_SIDEBAR_ITEMS : ISidebarItem[] = [
         icon : LayoutDashboard
     },
     {
-        label : "Total Users",
-        href : "/dashboard/admin/total-users",
+        label : "Users Managements",
+        href : "/dashboard/admin/users",
         icon : UserIcon
     },
     {

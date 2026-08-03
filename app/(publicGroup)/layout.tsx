@@ -7,13 +7,15 @@ export default async function PublicLayout({
 }: {
   children: React.ReactNode
 }) {
-const user = await getMe()
+  const user = await getMe()
 
   return (
     <div>
-      <Navbar user = {user} />
+      <Navbar user={user} />
       {children}
-      <Footer/>
+      <div className="min-h-screen w-full place-content-end pt-4">
+        <Footer />
+      </div>
     </div>
   )
 }
