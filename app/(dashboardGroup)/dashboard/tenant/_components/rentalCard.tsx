@@ -68,7 +68,7 @@ export function RentalCard({ rental }: IRentalProps) {
 
 
             <div className="flex-1 flex justify-start md:justify-end w-full md:w-auto">
-                {rental.status === "COMPLETED" ? (
+                {rental.status === "PENDING" ? (
                     <Link href={`/dashboard/tenant/myReview/${rental.id}`} className="underline text-blue-500">
                         Write Review
                     </Link>
@@ -76,7 +76,7 @@ export function RentalCard({ rental }: IRentalProps) {
                     <PaymentButton id={rental.id} />
                 ) : (
                     <Button disabled variant="ghost" className="w-full md:w-auto">
-                        Waiting for Approval
+                        Pending Approval
                     </Button>
                 )}
 

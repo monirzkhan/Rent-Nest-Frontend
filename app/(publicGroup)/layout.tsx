@@ -1,3 +1,4 @@
+import { Footer } from "@/components/shared/footer"
 import Navbar from "@/components/shared/navbar"
 import { getMe } from "@/service/getMe"
 
@@ -12,6 +13,7 @@ const user = await getMe()
     <div>
       <Navbar user = {user} />
       {children}
+      <Footer/>
     </div>
   )
 }

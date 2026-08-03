@@ -117,7 +117,7 @@ export default function PostPropertyModal({ isLoggedIn }: { isLoggedIn: boolean 
             toast.success('Property posted successfully!');
             setFormData(initialFormState);
             setIsOpen(false);
-            router.push('/dashboard/landlord/myProperties');
+            router.push('/dashboard/landlord/properties');
         } else {
             toast.error(result?.message || 'Failed to post property.');
         }

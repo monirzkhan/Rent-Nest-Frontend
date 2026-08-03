@@ -16,10 +16,14 @@ interface IPaymentRequest {
     moveInDate: string;
     durationMonths: number;
     paidAt: string;
-    property: {
-        title: string;
+    rentalRequest: {
+        id: string;
+        property: {
+            title: string;
+        };
     };
 }
+    
 type IPaymentProps = {
     payment: IPaymentRequest;
 };
@@ -35,6 +39,17 @@ export function PaymentCard({ payment }: IPaymentProps) {
             <div className="flex items-center gap-4 flex-[2] w-full min-w-0">
                 <div className="bg-primary/10 p-3 rounded-xl text-primary shrink-0">
                     <HomeIcon className="w-6 h-6" />
+                </div>
+                <div className="min-w-0">
+                    <h3 className="font-semibold text-xs line-clamp-2 truncate" title={payment.rentalRequest.property.title}>
+                        {payment.rentalRequest.property.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-0.5">Property Name</p>
+                </div>
+            </div>
+            <div className="flex items-center gap-4 flex-[2] w-full min-w-0">
+                <div className="bg-primary/10 p-3 rounded-xl text-primary shrink-0">
+                    <Banknote className="w-6 h-6" />
                 </div>
                 <div className="min-w-0">
                     <h3 className="font-semibold text-xs line-clamp-2 truncate" title={payment.transactionId}>{payment.transactionId}</h3>
@@ -73,7 +88,7 @@ export function PaymentCard({ payment }: IPaymentProps) {
                 ) : (
                     <Badge variant="secondary">{payment.status}</Badge>
                 )}
-                <p className="text-sm text-gray-500 mt-1">Request Status</p>
+                <p className="text-sm text-gray-500 mt-1">Payment Status</p>
             </div>
 
             {/* Action / Payment */}

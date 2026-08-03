@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/table"
 import { RentalStatusUpdateButton } from "./rentalStatusButton"
 import { UpdateRentalRequestsStatusAction } from "../_actions/rentalRequestAction"
+import ConfirmPaymentButton from "./confirmPaymentButton";
+import { PaymentSessionProvider } from "./paymentSessionContext";
 
 
 interface RentalRequestTableProps {
@@ -21,7 +23,7 @@ interface RentalRequestTableProps {
   };
 }
 
-export function RentalRequestTable({ requests }: RentalRequestTableProps) {
+function RentalRequestTableContent({ requests }: RentalRequestTableProps) {
   const router = useRouter();
   const [requestRows, setRequestRows] = useState(requests.data);
 
@@ -60,6 +62,18 @@ export function RentalRequestTable({ requests }: RentalRequestTableProps) {
   const formatStatus = (status: string) =>
     status ? status.charAt(0).toUpperCase() + status.slice(1).toLowerCase() : "Pending";
 
+  const getPaymentSessionId = (request: any) => {
+    return (
+      request?.sessionId ||
+      request?.payment?.sessionId ||
+      request?.paymentSessionId ||
+      request?.checkoutSessionId ||
+      request?.stripeSessionId ||
+      request?.transactionId ||
+      null
+    );
+  };
+
   return (
     <div className="mx-auto flex w-full flex-col">
       <Table>
@@ -71,6 +85,7 @@ export function RentalRequestTable({ requests }: RentalRequestTableProps) {
             <TableHead>Rent</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Actions</TableHead>
+            <TableHead >Payment</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -120,11 +135,36 @@ export function RentalRequestTable({ requests }: RentalRequestTableProps) {
                     onStatusChange={(status) => handleStatusChange(request.id, status)}
                   />
                 </TableCell>
+
+                <TableCell>
+                  {request.status === "COMPLETED" ? (
+                    <ConfirmPaymentButton
+                      sessionId={getPaymentSessionId(request)}
+                      requestId={request.id || request._id || request.rentalRequestId || request.requestId}
+                    />
+                  ) : request.status === "ACTIVE" ? (
+                    <Badge variant="success" size="sm" radius="full">
+                      Paid
+                    </Badge>
+                  ) : (
+                    <Badge variant="secondary" size="sm" radius="full">
+                      Pending
+                    </Badge>
+                  )}
+                </TableCell>
               </TableRow>
             );
           })}
         </TableBody>
       </Table>
     </div>
+  );
+}
+
+export function RentalRequestTable({ requests }: RentalRequestTableProps) {
+  return (
+    <PaymentSessionProvider>
+      <RentalRequestTableContent requests={requests} />
+    </PaymentSessionProvider>
   );
 }
