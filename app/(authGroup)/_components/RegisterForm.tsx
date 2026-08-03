@@ -4,6 +4,7 @@ import { Eye, EyeOff, ArrowRight, HousePlus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { registerAction } from "../_actions/registerAction";
 import { toast } from "sonner";
+import { useRouter } from "next/router";
 
 
 
@@ -254,6 +255,7 @@ const RegistrationCard = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isHovered, setIsHovered] = useState(false);
+    const router=useRouter()
 
     useEffect(() => {
         if (!state) {
@@ -261,6 +263,8 @@ const RegistrationCard = () => {
         }
         if (state.success) {
             toast.success('Account Created Successfully')
+            router.push('/login')
+            
         }
         if (!state.success) {
             toast.error('Account is Not Created')
