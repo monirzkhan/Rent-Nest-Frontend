@@ -68,19 +68,32 @@ export function RentalCard({ rental }: IRentalProps) {
 
 
             <div className="flex-1 flex justify-start md:justify-end w-full md:w-auto">
-                {rental.status === "PENDING" ? (
-                    <Link href={`/dashboard/tenant/myReview/${rental.id}`} className="underline text-blue-500">
-                        Write Review
-                    </Link>
-                ) : rental.status === "APPROVED" ? (
-                    <PaymentButton id={rental.id} />
-                ) : (
-                    <Button disabled variant="ghost" className="w-full md:w-auto">
-                        Pending Approval
-                    </Button>
-                )}
-
-            </div>
+                 {rental.status === "ACTIVE" ? (
+                                    <Link href={`/dashboard/tenant/myReview/${rental.id}`} className="underline text-blue-500">
+                                        Write Review
+                                    </Link>
+                                ) : rental.status === "APPROVED" ? (
+                                    <PaymentButton id={rental.id} />
+                                ) : rental.status === "COMPLETED" ?(
+                                    <Button disabled variant="ghost" className="w-full md:w-auto">
+                                        Thank you!
+                                    </Button>
+                
+                                ):rental.status === "PENDING" ?(
+                                    <Button disabled variant="ghost" className="w-full md:w-auto">
+                                        Wait for Approval
+                                    </Button>
+                
+                                ):
+                                
+                                (
+                                    <Button disabled variant="ghost" className="w-full md:w-auto">
+                                        Be Patience
+                                    </Button>
+                                )}
+                
+                            </div>
+            
 
         </Card>
     );

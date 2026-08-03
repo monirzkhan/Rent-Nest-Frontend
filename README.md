@@ -178,7 +178,7 @@ src
 ## Clone Repository
 
 ```bash
-git clone https://github.com/monirzkhan/rentnest-frontend.git
+git clone https://github.com/monirzkhan/rent-nest-frontend.git
 
 cd rentnest-frontend
 ```
@@ -346,13 +346,13 @@ Deploy using:
 Frontend Developer
 
 GitHub:
-https://github.com/onirzkhan
+https://github.com/monirzkhan
 
 LinkedIn:
 https://linkedin.com/in/monirzkhan-dev
 
 Portfolio:
-https://mmonirz.dev.vercel.app
+https://mmonirz-dev.vercel.app
 
 ---
 
