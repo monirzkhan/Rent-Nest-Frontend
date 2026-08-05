@@ -247,6 +247,9 @@ const DotMap = () => {
   );
 };
 
+const handleGoogleSignIn=()=>{
+  toast.error("Google Auth is under maintainance, Please Login with email and password")
+}
 const SignInCard = () => {
   const [state, action, pending] = useActionState(loginAction, false)
   useEffect(() => {
@@ -324,7 +327,7 @@ const SignInCard = () => {
             <div className="mb-6">
               <button
                 className="w-full flex items-center justify-center gap-2 bg-gray-50 border border-gray-200 rounded-lg p-3 hover:bg-gray-100 transition-all duration-300 text-gray-700 shadow-sm"
-                onClick={() => console.log("Google sign-in")}
+                onClick={handleGoogleSignIn}
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
                   <path

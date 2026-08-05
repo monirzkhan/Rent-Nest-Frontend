@@ -26,7 +26,6 @@ RentNest is a full-stack rental property marketplace that connects **Landlords**
 
 # 📸 Screenshots
 
-> Replace these placeholders with your screenshots.
 
 | Home Page | Property Details |
 |------------|------------------|
