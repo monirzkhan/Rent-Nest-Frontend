@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { confirmPayment } from "../_actions/paymentAction";
+import { confirmPayment } from "../_actions/confirmPaymentAction";
 import { Button } from "@/components/ui/button";
 import { usePaymentSession } from "./paymentSessionContext";
 
@@ -16,6 +16,10 @@ const ConfirmPaymentButton = ({ sessionId: providedSessionId, requestId }: Confi
     const [isConfirming, setIsConfirming] = useState(false);
 
     const resolvedSessionId = providedSessionId ?? contextSessionId ?? requestId;
+    console.log(resolvedSessionId , "from Confirm Button resolvedSessionId");
+    console.log(contextSessionId , "from Confirm Button contextSessionId");
+    console.log(requestId , "from Confirm Button requestId");
+    console.log(resolvedSessionId , "from Confirm Button requestId resolvedSessionId");
 
     const handleConfirm = async () => {
         if (!resolvedSessionId) {

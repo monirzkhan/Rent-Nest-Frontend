@@ -2,8 +2,8 @@
 
 import { cookies } from 'next/headers';
 
-export async function confirmPayment(sessionId: string) {
-    console.log(sessionId , "from Confirm actions");
+export async function confirmPayment(rentalRequestId: string) {
+    console.log(rentalRequestId , "from Confirm actions");
     const cookieStore = await cookies();
     const token = cookieStore.get('accessToken')?.value;
 
@@ -11,6 +11,24 @@ export async function confirmPayment(sessionId: string) {
         return { success: false, message: 'You must be logged in to confirm a payment.' };
     }
 
+    //Get Payments Details
+     const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/payments`,
+        {
+            cache: "no-store",
+            headers: {
+                Cookie: cookieStore.toString(),
+            },
+        }
+    );
+    const payments = await res.json();
+    const sessionIdArray=payments.data.filter((s: any)=>s.rentalRequestId===rentalRequestId)
+    const sessionId=sessionIdArray[0].transactionId;
+     if (!sessionId) {
+        return { success: false, message: 'SessionId Not Found' };
+    }
+
+    //Confirm Payment
     const baseUrl = process.env.BACKEND_API_URL || 'https://rentnest-seven.vercel.app';
     const endpoints = [`${baseUrl}/api/payments/confirm`, `${baseUrl}/api/payments/confirm`];
 

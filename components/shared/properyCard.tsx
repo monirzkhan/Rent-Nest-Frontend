@@ -8,12 +8,14 @@ import styled from "styled-components";
 import RentRequestModal from "@/app/(publicGroup)/properties/[id]/_components/RentRequestModal";
 import { div } from "framer-motion/client";
 import { IProperty } from "@/lib/types";
+import { safeImageSrc } from "@/lib/utils";
 
 type IpropertyProps = {
   property: IProperty
 }
 
 const PropertyCard = ({ property }: IpropertyProps) => {
+  const thumbnailSrc = safeImageSrc(property.thumbnail)
 
   return (
     <StyledWrapper>
@@ -23,7 +25,7 @@ const PropertyCard = ({ property }: IpropertyProps) => {
           <div className="back" style={{ position: 'absolute', inset: 0 }}>
             <div className="back-content" style={{ position: 'relative', width: '100%', height: '100%' }}>
               <Image
-                src={property.thumbnail}
+                src={thumbnailSrc}
                 alt="Property"
                 fill
                 className="property-image"
@@ -38,7 +40,7 @@ const PropertyCard = ({ property }: IpropertyProps) => {
           <div className="front" style={{ position: 'absolute', inset: 0 }}>
             <div className="img" style={{ position: 'relative', width: '100%', height: '100%' }}>
               <Image
-                src={property.thumbnail}
+                src={thumbnailSrc}
                 alt="Property"
                 fill
                 className="property-image"

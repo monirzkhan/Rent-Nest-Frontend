@@ -6,6 +6,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { IProperty } from "@/lib/types";
 import { Button } from "@/components/ui/button";
+import { safeImageSrc } from "@/lib/utils";
 
 import UpdatePropertyModal from "./updatePropetyModal";
 import { ConfirmDeleteToast } from "./deletePropertyToast";
@@ -16,6 +17,7 @@ type IpropertyProps = {
 }
 
 const PropertyCardLandlord = ({ property, isLoggedIn }: IpropertyProps) => {
+  const thumbnailSrc = safeImageSrc(property.thumbnail)
  
   return (
     <StyledWrapper>
@@ -25,7 +27,7 @@ const PropertyCardLandlord = ({ property, isLoggedIn }: IpropertyProps) => {
           <div className="back" style={{ position: 'absolute', inset: 0 }}>
             <div className="back-content" style={{ position: 'relative', width: '100%', height: '100%' }}>
               <Image
-                src={property.thumbnail}
+                src={thumbnailSrc}
                 alt="Property"
                 fill
                 className="property-image"
@@ -40,7 +42,7 @@ const PropertyCardLandlord = ({ property, isLoggedIn }: IpropertyProps) => {
           <div className="front" style={{ position: 'absolute', inset: 0 }}>
             <div className="img" style={{ position: 'relative', width: '100%', height: '100%' }}>
               <Image
-                src={property.thumbnail}
+                src={thumbnailSrc}
                 alt="Property"
                 fill
                 className="property-image"

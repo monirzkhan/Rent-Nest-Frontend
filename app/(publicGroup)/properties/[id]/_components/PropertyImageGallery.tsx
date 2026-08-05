@@ -3,10 +3,14 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { isValidImageSrc } from '@/lib/utils';
+
+const DEFAULT_PROPERTY_IMAGE = "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80";
 
 export default function PropertyImageGallery({ mainImage, thumbnails, title }: { mainImage: string, thumbnails: string[], title: string }) {
-    const [currentImage, setCurrentImage] = useState(mainImage);
-    const allImages = [mainImage, ...(thumbnails || [])].filter(Boolean);
+    const validImages = [mainImage, ...(thumbnails || [])].filter(isValidImageSrc);
+    const [currentImage, setCurrentImage] = useState<string>(() => validImages[0] || DEFAULT_PROPERTY_IMAGE);
+    const allImages = validImages.length > 0 ? validImages : [DEFAULT_PROPERTY_IMAGE];
     const uniqueImages = Array.from(new Set(allImages));
 
     const handlePrev = () => {
@@ -32,7 +36,7 @@ export default function PropertyImageGallery({ mainImage, thumbnails, title }: {
             {/* Main Image */}
             <div className="rounded-xl overflow-hidden mb-4 relative aspect-[16/9] shadow-sm">
                 <Image
-                    src={currentImage || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"}
+                    src={currentImage}
                     alt={title || "Property Main View"}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
